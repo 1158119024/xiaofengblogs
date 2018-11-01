@@ -11,12 +11,7 @@ import FrontIndexLayout from './layouts/FrontLayout';
 
 import Markdown from './pages/Markdown';
 import BasicLayout from './layouts/BasicLayout';
-import {
-  LOGIN_PATH,
-  ADMIN_PREFIX,
-  FRONT_PREFIX,
-  USER_PREFIX,
-} from './config/constants';
+import { ADMIN_PREFIX, USER_PREFIX } from './config/constants';
 
 const routerConfig = [
   {

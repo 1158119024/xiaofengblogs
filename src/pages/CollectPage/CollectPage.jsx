@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
-
-export default class FrontIndexLayout extends Component {
+export default class CollectPage extends Component {
 
   render() {
     return (
         <div>
-
+          CollectPage
         </div>
     );
   }

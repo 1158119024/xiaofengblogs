@@ -1,4 +1,4 @@
-import { push } from 'react-router-redux';
+import { push, replace } from 'react-router-redux';
 import { Feedback } from '@icedesign/base';
 import cookie from 'js-cookie';
 

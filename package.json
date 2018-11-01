@@ -5,7 +5,7 @@
   "dependencies": {
     "@antv/data-set": "^0.8.5",
     "@icedesign/base": "^0.2.0",
-    "@icedesign/container": "^0.1.2",
+    "@icedesign/container": "^0.1.0",
     "@icedesign/data-binder": "^0.1.1",
     "@icedesign/ellipsis": "^0.1.1",
     "@icedesign/form-binder": "^0.1.2",
@@ -19,6 +19,7 @@
     "bizcharts": "latest",
     "classnames": "^2.2.5",
     "crypto-js": "^3.1.9-1",
+    "dynamic-icon": "^0.1.4",
     "enquire-js": "^0.1.2",
     "foundation-symbol": "^0.1.0",
     "history": "^4.7.2",

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Balloon, Icon, Loading } from '@icedesign/base';
 import IceImg from '@icedesign/img';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import FoundationSymbol from 'foundation-symbol';
 import cookie from 'js-cookie';
-import { push } from 'react-router-redux';
 
 
 import { connect } from 'react-redux';
@@ -14,6 +13,7 @@ import { getUser } from './actions';
 import reducer from './reducer';
 import { LOGIN_PATH } from '../../config/constants';
 
+@withRouter
 class HeaderRight extends Component {
 
   loginOut = () => {
@@ -27,7 +27,7 @@ class HeaderRight extends Component {
   render() {
     const { isLoading, userResult } = this.props.userResult;
     if (isLoading === false && !userResult) {
-      window.location.href = `${LOGIN_PATH}`;
+      this.props.history.push(`${LOGIN_PATH}`);
     }
     return (
       <Loading shape="flower" tip="loading..." color="#333" visible={isLoading}>

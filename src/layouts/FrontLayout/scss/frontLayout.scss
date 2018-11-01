@@ -1,0 +1,157 @@
+html, body{
+  height: 100%;
+  $layout-body-color: #e0e0e0 !global;
+  $layout-left-label-color: #F5F5F5 !global;
+}
+#ice-container{
+  height: 100%;
+}
+#ice-container > div{
+  height: 100%;
+}
+.layout{
+  padding: 0px;
+  height: 100%;
+  position: relative;
+  overflow-y: scroll;
+  margin-bottom: 0px !important;
+  background-color: $layout-body-color !important;
+}
+.container-block{
+  margin-bottom: 0px !important;
+  //background-color: $layout-body-color !important;
+  //padding: 20px 0px !important;
+}
+// 左侧布局
+.layout-left{
+  width: 16%;
+  height: 95%;
+  display: inline-block;
+  background-color: #fefefe;
+  position: fixed;
+  border-radius: 10px;
+
+  // 左侧图片（头像）
+  .layout-left-img{
+    text-align: center;
+    background-color: $layout-left-label-color;
+    border-radius: 10px;
+
+    .ice-img{
+      cursor: pointer;
+    }
+  }
+  // 左侧内容
+  .layout-left-content{
+    //height: 70%;
+    text-align: center;
+    color: #999999;
+
+    .user-name{
+      cursor: pointer;
+    }
+
+    .layout-left-content-list{
+      width: 100%;
+      height: 50px;
+      font-weight: bold;
+      cursor: pointer;
+
+      .layout-left-content-item{
+        width: 25%;
+        height: 100%;
+        float: left;
+
+        .layout-left-content-item-title{
+          width: 100%;
+          height: 50%;
+        }
+
+        .layout-left-content-item-content{
+          width: 100%;
+          height: 50%;
+        }
+      }
+    }
+
+    // 气泡div
+    .balloon-list{
+      padding-top: 10px;
+    }
+  }
+  // 左侧尾部
+  .layout-left-footer{
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    text-align: center;
+    bottom: 0px;
+    border-radius: 10px;
+    background-color: $layout-left-label-color;
+
+    .layout-left-footer-icon{
+      line-height: 120px;
+
+      .footer-icon{
+        margin: 0 12px
+      }
+    }
+
+
+  }
+}
+
+//头
+.layout-header{
+  height: 40px;
+  position: relative;
+
+  .search{
+    position: absolute;
+    right: 0;
+  }
+}
+
+//内容区域
+.layout-content{
+  //width: 67%;
+  width: 80%;
+  display: inline-block;
+  position: absolute;
+  //right: 16%;
+  right: 2%;
+}
+
+//布局右侧
+.layout-right{
+  width: 15%;
+  height: 100%;
+  position: absolute;
+  right: 10px;
+  background-color: #fefefe;
+  border-radius: 10px;
+}
+
+//// 气泡图片
+//.balloon-icon{
+//  cursor: pointer;
+//  margin-left: 15px;
+//  color: #999999;
+//}
+//// 气泡提醒内容
+//.balloon-message{
+//  background-color: #666666;
+//  color: #ffffff;
+//}
+//.balloon-message:after{
+//  background-color: #666666;
+//}
+//
+//日历
+.calendar{
+  width: 100%;
+  border: 1px solid $layout-left-label-color;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 20px;
+}

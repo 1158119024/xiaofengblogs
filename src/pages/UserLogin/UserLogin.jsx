@@ -1,6 +1,6 @@
 /* eslint react/no-string-refs:0 */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Input, Button, Checkbox, Grid } from '@icedesign/base';
 import {
   FormBinderWrapper as IceFormBinderWrapper,
@@ -19,6 +19,7 @@ import { Encrypt } from '../../utils/utils';
 
 const { Row, Col } = Grid;
 
+@withRouter
 class UserLogin extends Component {
   static displayName = 'UserLogin';
 
@@ -60,6 +61,26 @@ class UserLogin extends Component {
       this.props.userLogin(values);
     });
   };
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('popstate', null);
+  // }
+  //
+  // componentDidMount() {
+  //   // 如果有问题，加个setTimeout
+  //   window.addEventListener('popstate', (state) => {
+  //     console.log(state.state);
+  //     if (state.state) {
+  //       //侦测是用户触发的后退操作, dosomething
+  //       //这里刷新当前url
+  //       this.location.reload();
+  //     } 
+  //   }, false);
+  // }
+  //
+  // back() {
+  //   this.props.history.push('/');
+  // }
 
   render() {
     console.log(this.props.loginResult)

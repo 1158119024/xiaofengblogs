@@ -1,0 +1,17 @@
+// 气泡图片
+.balloon-icon{
+  cursor: pointer;
+  margin: 0 7px;
+  color: #999999;
+}
+.balloon-icon:hover{
+  color: #bbbbbb;
+}
+// 气泡提醒内容
+.balloon-message{
+  background-color: #666666;
+  color: #ffffff;
+}
+.balloon-message:after{
+  background-color: #666666;
+}
