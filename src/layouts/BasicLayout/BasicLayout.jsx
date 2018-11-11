@@ -16,6 +16,8 @@ import BasicLayoutHoc from './BasicLayoutHoc';
 import MainRoutes from './MainRoutes';
 
 import './scss/index.scss';
+import { Route, Switch } from 'react-router-dom';
+import WriteBlogsPage from '../../pages/BackArticlePage/components/WriteBlogsPage';
 
 // 设置默认的皮肤配置，支持 dark 和 light 两套皮肤配置
 const theme = 'dark';

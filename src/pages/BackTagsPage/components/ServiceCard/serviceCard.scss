@@ -1,0 +1,18 @@
+.service-card{
+  display: inline-block;
+  margin: 0 20px;
+}
+.tag-header{
+  position: relative;
+
+  .handle-icon{
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+
+    .handle{
+      margin: 0 4px;
+    }
+  }
+}
+

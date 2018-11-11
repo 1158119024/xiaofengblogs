@@ -5,6 +5,7 @@ import NotFound from '../../components/NotFound';
 import { asideMenuConfig } from '../../menuConfig';
 import { routerData } from '../../routerConfig';
 import { ADMIN_PREFIX } from '../../config/constants';
+import WriteBlogsPage from '../../pages/BackArticlePage/components/WriteBlogsPage';
 
 class MainRoutes extends Component {
   static displayName = 'MainRoutes';
@@ -50,12 +51,9 @@ class MainRoutes extends Component {
 
   render() {
     const redirectData = this.getRedirectData();
-    console.log(routerData);
-    console.log(this.renderNormalRoute)
-    console.log(redirectData);
-    console.log(routerData.map(this.renderNormalRoute))
     return (
       <Switch>
+        <Route path="/manage/article/write" component={WriteBlogsPage} />
         {/* 渲染权限路由表 */}
         {routerData.map(this.renderNormalRoute)}
         {/* 路由重定向，嵌套路由默认重定向到当前菜单的第一个路由 */}
@@ -65,7 +63,6 @@ class MainRoutes extends Component {
 
         {/* 首页默认重定向到 /dashboard */}
         <Redirect exact from="/manage" to="/manage/dashboard/monitor" />
-
         {/* 未匹配到的路由重定向到 404 */}
         <Route component={NotFound} />
       </Switch>

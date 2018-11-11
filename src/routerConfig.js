@@ -5,13 +5,17 @@
 import { getRouterData } from './utils/formatter';
 import { asideMenuConfig } from './menuConfig';
 
+import BasicLayout from './layouts/BasicLayout';
+import { ADMIN_PREFIX, USER_PREFIX } from './config/constants';
+
 import UserLogin from './pages/UserLogin';
 import Dashboard from './pages/Dashboard';
 import FrontIndexLayout from './layouts/FrontLayout';
-
+import BackTagsPage from './pages/BackTagsPage';
 import Markdown from './pages/Markdown';
-import BasicLayout from './layouts/BasicLayout';
-import { ADMIN_PREFIX, USER_PREFIX } from './config/constants';
+import BackArticlePage from './pages/BackArticlePage';
+import WriteBlogsPage from './pages/BackArticlePage/components/WriteBlogsPage/WriteBlogsPage';
+
 
 const routerConfig = [
   {
@@ -36,6 +40,16 @@ const routerConfig = [
     path: `${ADMIN_PREFIX}/markdown`,
     layout: BasicLayout,
     component: Markdown,
+  },
+  {
+    path: `${ADMIN_PREFIX}/tags`,
+    layout: BasicLayout,
+    component: BackTagsPage,
+  },
+  {
+    path: `${ADMIN_PREFIX}/article`,
+    layout: BasicLayout,
+    component: BackArticlePage,
   },
 ];
 

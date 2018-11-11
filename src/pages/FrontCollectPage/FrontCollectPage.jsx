@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class CollectPage extends Component {
+export default class FrontCollectPage extends Component {
 
   render() {
     return (
-        <div>
+        <div className="fadeInRightBig">
           CollectPage
         </div>
     );

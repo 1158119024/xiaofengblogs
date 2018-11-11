@@ -9,7 +9,7 @@ import cx from 'classnames';
 import { Link } from 'react-router-dom';
 import { headerMenuConfig } from '../../../../menuConfig';
 import Logo from '../Logo';
-import HeaderRight from '../../../../pages/Header/HeaderRight';
+import HeaderRight from '../../../../pages/BackHeaderPage/HeaderRight';
 
 import './scss/dark.scss';
 import './scss/light.scss';

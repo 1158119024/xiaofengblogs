@@ -1,32 +1,20 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import IceContainer from '@icedesign/container';
-import { Animate, Search } from '@icedesign/base';
+import { Search } from '@icedesign/base';
 
 import FrontIndex from '../../pages/FrontIndex';
 import './scss/frontLayout.scss';
-import CollectPage from '../../pages/CollectPage/CollectPage';
+import FrontCollectPage from '../../pages/FrontCollectPage/FrontCollectPage';
 import FrontLeftPage from '../../pages/FrontLeftPage/FrontLeftPage';
 
 export default class FrontLayout extends Component {
-
-  state = {
-    visible: false,
-  };
-
-  componentDidMount = () => {
-    this.setState({
-      visible: true,
-    });
-  };
 
   render() {
     return (
       <div>
         <IceContainer className="layout" style={{ backgroundColor: '#eee', height: 'height: 100%' }}>
-          <Animate animation={{ enter: 'fadeInLeftBig' }}>
-            {this.state.visible ? <FrontLeftPage /> : null}
-          </Animate>
+          <FrontLeftPage />
           <div className="layout-content">
             <div className="layout-header">
               <Search
@@ -41,7 +29,7 @@ export default class FrontLayout extends Component {
             <Switch>
               <Route path="/test" />
               <Route path="/tags" />
-              <Route path="/collect" component={CollectPage} />
+              <Route path="/collect" component={FrontCollectPage} />
               <Route path="/" component={FrontIndex} />
             </Switch>
 

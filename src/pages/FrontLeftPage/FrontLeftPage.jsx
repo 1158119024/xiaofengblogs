@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Balloon, Calendar, Loading } from '@icedesign/base';
 import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
-import DynamicIcon from 'dynamic-icon';
 
 import './scss/frontLeftPage.scss';
 import { getUserDetailsAction } from './actions';
@@ -12,12 +11,7 @@ import injectReducer from '../../utils/injectReducer';
 import reducer from './reducer';
 import QQImage from '../../components/image/QQ3.jpg';
 import WXImage from '../../components/image/wx.png';
-
-const CustomIcon = DynamicIcon.create({
-  fontFamily: 'iconfont',
-  prefix: 'icon',
-  css: 'https://at.alicdn.com/t/font_900131_a6xvyzy0o9a.css',
-});
+import { CustomIcon } from '../../config/iconfont';
 
 const iconSize = 'medium';
 const balloonIcon = [
@@ -107,7 +101,7 @@ let userDetailsInit = {
     image: '',
     isEnable: true,
     createTime: '',
-    productNum: 0,
+    articleNum: 0,
     collectNum: 0,
     commentNum: 0,
     commendNum: 0,
@@ -130,7 +124,7 @@ class FrontLeftPage extends Component {
     }
     const { data } = userDetailsInit;
     return (
-      <div className="layout-left">
+      <div className="layout-left fadeInLeftBig">
         <Loading shape="fusion-reactor" tip="loading..." color="#999" visible={isLoading} style={{ height: '100%' }} >
           <div className="layout-left-img">
             <Img
@@ -151,7 +145,7 @@ class FrontLeftPage extends Component {
                   <span>作品</span>
                 </div>
                 <div className="layout-left-content-item-content">
-                  <span>{data.productNum}</span>
+                  <span>{data.articleNum}</span>
                 </div>
               </div>
               <div className="layout-left-content-item">
