@@ -21,6 +21,9 @@
     .article-footer-tag-key{
     }
     .article-footer-tag-value{
+      display: inline-block;
+    }
+    .article-footer-tag-add{
       padding: 0px 10px;
       border-radius: 10px;
       cursor: pointer;
@@ -53,7 +56,7 @@
 
 // tag 弹窗
 .tag-dialog{
-  width: 850px;
+  width: 550px;
 
   .tag-dialog-search{
     text-align: center;

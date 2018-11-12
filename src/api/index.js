@@ -10,6 +10,8 @@ axios.interceptors.response.use(response => {
     Feedback.toast.error(response.data.msg);
     window.location.href = `${REQUEST_PREFIX}user/login`;
     return null;
+  } else if (response.data.code !== 200) {
+    Feedback.toast.error(response.data.msg);
   }
   return response;
 }, (err) => {

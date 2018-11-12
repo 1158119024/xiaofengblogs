@@ -45,20 +45,20 @@ export default function tagsReducer(state = initialState, action) {
         tagsResult: initialState.tagsResult,
       });
     case TAGS_ACTION_GETTAGSBYUSERID_PAGING: // 分页加载 标记选中的值
-      console.log(action.payload);
-      let { checkedTag } = action.payload;
-      if (checkedTag) {
-        let { list } = action.payload.data;
-        let index = -1;
-        for (let i = 0, len = checkedTag.length; i < len; i++) {
-          index = list.findIndex((item) => {
-            return item.id === checkedTag[i];
-          });
-          index !== -1 ? list[index].isCheckedTag = true : '';
-          index = -1;
-        }
-        action.payload.data.list = list;
-      }
+      // console.log(action.payload);
+      // let { checkedTag } = action.payload;
+      // if (checkedTag) {
+      //   let { list } = action.payload.data;
+      //   let index = -1;
+      //   for (let i = 0, len = checkedTag.length; i < len; i++) {
+      //     index = list.findIndex((item) => {
+      //       return item.id === checkedTag[i];
+      //     });
+      //     index !== -1 ? list[index].isCheckedTag = true : '';
+      //     index = -1;
+      //   }
+      //   action.payload.data.list = list;
+      // }
       return Object.assign({}, state, {
         isLoading: action.isLoading,
         tagsResult: action.payload,

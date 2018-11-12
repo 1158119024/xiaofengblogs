@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
+import PropTypes from 'prop-types';
 import BraftEditor from 'braft-editor';
 import ColorPicker from 'braft-extensions/dist/color-picker';
 import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
@@ -34,6 +35,10 @@ BraftEditor.use(ColorPicker({
 }));
 export default class CustomBraftEditor extends Component {
 
+  static propTypes = {
+    updateArticle: PropTypes.func.isRequired, // 富文本内容修改
+  };
+
   state = {
     editorState: BraftEditor.createEditorState(),
     qualityValue: '标清',
@@ -53,7 +58,7 @@ export default class CustomBraftEditor extends Component {
   // 富文本内容改变
   handleChange = (editorState) => {
     this.setState({ editorState });
-    console.log(editorState.toHTML());
+    this.props.updateArticle(editorState.toHTML());
   };
 
   // 上传
@@ -176,6 +181,7 @@ export default class CustomBraftEditor extends Component {
 
   render() {
     const { qualityValue, quality } = this.state;
+    const excludeControls = ['emoji'];
     const extendControls = [
       {
         key: 'custom-button',
@@ -207,7 +213,7 @@ export default class CustomBraftEditor extends Component {
       onChange: this.handleChange,
       onRawChange: this.handleRawChange,
       extendControls: extendControls,
-      // excludeControls: ['emoji'],
+      excludeControls: excludeControls,
       media: {
         uploadFn: this.myUploadFn,
         externals: {

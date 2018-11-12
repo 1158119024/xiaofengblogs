@@ -146,6 +146,7 @@ class BackTagsPage extends Component {
     if (tagsResult && tagsResult.code === 200) {
       tagsResultInit = this.props.tagsResult.tagsResult;
     }
+    console.log(tagsResultInit);
     return (
       <Loading
         shape="fusion-reactor"
@@ -153,7 +154,6 @@ class BackTagsPage extends Component {
         style={{ display: 'block' }}
         visible={isLoading}
       >
-        <div onClick={this.handleClick}></div>
         <IcePanel
           status="success"
           style={{ marginBottom: '10px' }}
@@ -176,7 +176,7 @@ class BackTagsPage extends Component {
           </IcePanel.Header>
           <IcePanel.Body>
             <IceContainer
-              style={{ height: '680px', overflow: 'auto' }}
+              style={{ height: '650px', overflow: 'auto' }}
               onScroll={this.handleScroll}
             >
               <ReactList

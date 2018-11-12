@@ -11,3 +11,18 @@ export const usernameGetFun = () => {
   // console.log(window.location.href);
   return '123';
 };
+
+export const getRandom = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+const color = [{ backgroundColor: '#fdd8e7', color: '#f5317f' },
+  { backgroundColor: '#fcdbd9', color: '#f04134' },
+  { backgroundColor: '#fde3cf', color: '#f56a00' },
+  { backgroundColor: '#cfefdf', color: '#00a854' },
+  { backgroundColor: '#cfedf0', color: '#00a2ae' },
+  { backgroundColor: '#d2eafb', color: '#108ee9' },
+  { backgroundColor: '#e4e2fa', color: '#7265e6' }];
+export const getColor = () => {
+  return color[getRandom(0, color.length)];
+};
+

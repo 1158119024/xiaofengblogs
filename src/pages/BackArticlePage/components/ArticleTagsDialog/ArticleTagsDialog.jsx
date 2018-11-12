@@ -52,7 +52,7 @@ class ArticleTagsDialog extends Component {
     this.setState({
       checkedTag: this.props.checkedTag,
     });
-    this.getTagsByUserId(50, 1);
+    this.getTagsByUserId(1000, 1);
   }
 
   componentWillUnmount() {
@@ -90,6 +90,13 @@ class ArticleTagsDialog extends Component {
 
   // 删除选中标签时
   onCloseHandle = (item, closed) => {
+
+    // let { list } = tagsResultInit.data;
+    // const index2 = list.findIndex((value) => {
+    //   return value.id === item.id;
+    // });
+    // list[index2].isCheckedTag = false;
+
     let { checkedTag } = this.state;
     const index = checkedTag.findIndex((value) => {
       return value.id === item.id;
@@ -145,9 +152,7 @@ class ArticleTagsDialog extends Component {
             <div className="tag-dialog-checked-value">
               {
                 tagsResultInit.data.list.map((item, index) => (
-                  item.isCheckedTag ?
-                    <Tag shape="deletable" type="secondary" value={item} key={index} id={item.id} onClose={this.onCloseHandle}>{item.tagName}</Tag>
-                    : ''
+                  <Tag shape="deletable" type="secondary" closed={!item.isCheckedTag} value={item} key={index} id={item.id} onClose={this.onCloseHandle}>{item.tagName}</Tag>
                 ))
               }
             </div>

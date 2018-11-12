@@ -73,8 +73,8 @@ const tagsAddChecked = (payload) => {
 let isReset = true; // 是否重置标识
 // 当有值的时候又分为两种情况，值改变和值未改变，值改变才去重置state
 let lastSearchName = ''; // 记录上一次的搜索值
-// 参数， 类型，
-export const tagsAction = (params, type, checkedTag) => {
+// 参数， 类型，选中的标签（暂时没用），二次查询的参数
+export const tagsAction = (params, type, checkedTag = [], params2) => {
   return async (dispatch) => {
     dispatch(tagsActionRequest());
     try {
@@ -98,7 +98,7 @@ export const tagsAction = (params, type, checkedTag) => {
           response = await getTagsByUserId(params);
           response.data.checkedTag = checkedTag;
           dispatch(tagsActionSuccessPaging(response.data));
-          break;
+          return response.data;
         case TAGS_ACTION_GETTAGSBYUSERID: // 滚动加载
           response = await getTagsByUserId(params);
           console.log(response);
@@ -116,16 +116,21 @@ export const tagsAction = (params, type, checkedTag) => {
           dispatch(getTagsByUserIdSuccess(response.data));
           return response.data;
         case TAGS_ACTION_ADD_CHECKED: // 添加选中
-          debugger
           tagsAddChecked(params);
           break;
         default:
           Feedback.toast.error('错误的选择！！');
           break;
       }
+      // 增删改完成后在查询一次
       if (response.data.code === 200) {
         Feedback.toast.success(response.data.msg);
-        response = await getTagsByUserId();
+        if (params2) {
+          console.log(params2);
+          response = await getTagsByUserId(params2);
+        } else {
+          response = await getTagsByUserId({ tagName: '' });
+        }
         dispatch(tagsActionSuccess(response.data));
       }
       return response.data;
