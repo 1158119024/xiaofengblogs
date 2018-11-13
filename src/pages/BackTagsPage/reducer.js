@@ -63,10 +63,6 @@ export default function tagsReducer(state = initialState, action) {
         isLoading: action.isLoading,
         tagsResult: action.payload,
       });
-    case TAGS_ACTION_ADD_CHECKED:
-      debugger
-      console.log(action.payload);
-      break;
     default:
       return state;
   }

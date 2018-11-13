@@ -23,6 +23,6 @@ const color = [{ backgroundColor: '#fdd8e7', color: '#f5317f' },
   { backgroundColor: '#d2eafb', color: '#108ee9' },
   { backgroundColor: '#e4e2fa', color: '#7265e6' }];
 export const getColor = () => {
-  return color[getRandom(0, color.length)];
+  return color[getRandom(0, color.length - 1)];
 };
 

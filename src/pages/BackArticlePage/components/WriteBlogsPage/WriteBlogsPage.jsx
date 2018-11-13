@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
-import { Button, Input, Switch, Dialog } from '@icedesign/base';
+import { Button, Input, Switch, Dialog, Feedback } from '@icedesign/base';
 import IceLabel from '@icedesign/label';
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
+import { push } from 'react-router-redux';
 
 import BraftEditor from '../BraftEditor/index';
 import { CustomIcon } from '../../../../config/iconfont';
-import { articleTagsAction } from '../../actions';
+import { articleAction } from '../../actions';
 import injectReducer from '../../../../utils/injectReducer';
 import reducer from '../../reducer';
 import './writeBlogs.scss';
 import ArticleTagsDialog2 from '../ArticleTagsDialog/ArticleTagsDialog2';
 import { ADMIN_PREFIX, getColor } from '../../../../config/constants';
 import { ARTICLE_ACTION_ADD, ARTICLE_ACTION_DELETE, ARTICLE_ACTION_UPDATE, ARTICLE_ACTION_GETARTICLEBYID, ARTICLE_ACTION_GETARTICLESBYUSERID } from '../../contants';
+import { withRouter } from 'react-router-dom';
 
+@withRouter
 class WriteBlogsPage extends Component {
 
   state = {
     title: '',
+    titleChecked: '', // 标题校验
     isPrivate: false, // 是否私密
     isTop: false, // 是否置顶
     tagVisible: false, // tag弹窗的状态
@@ -77,20 +81,41 @@ class WriteBlogsPage extends Component {
 
   // 保存文章按钮
   saveArticleBtn = (event) => {
-    let isPublish = event.target.value;
-    if (isPublish === 'save') {
-      isPublish = true;
-    } else {
-      isPublish = false;
-    }
     const { isPrivate, isTop, articleContent, checkedTag, title } = this.state;
-    let tagsId = '';
+    if (!this.checkTitle(title)) {
+      return '';
+    }
+    let state = event.target.value;
+    if (state === 'save') {
+      state = '1';
+    } else {
+      state = '2';
+    }
+    let tagsId = ',';
     for (const tag of checkedTag) {
       tagsId += `${tag},`;
     }
-    const params = { isPublish, isPrivate, isTop, title, content: articleContent, tagsId };
+    const params = { state, isPrivate, isTop, title, content: articleContent, tagsId };
     console.log(params);
-    this.props.articleTagsAction(params, ARTICLE_ACTION_ADD);
+    this.props.articleAction(params, ARTICLE_ACTION_ADD);
+  };
+
+  // 校验标题
+  checkTitle = (title) => {
+    this.setState({
+      titleChecked: 'loading',
+    });
+    if (!title) {
+      this.setState({
+        titleChecked: 'error',
+      });
+      Feedback.toast.error('请输入标题！！');
+      return false;
+    }
+    this.setState({
+      titleChecked: 'success',
+    });
+    return true;
   };
 
   // ---------------------标签框一
@@ -124,7 +149,7 @@ class WriteBlogsPage extends Component {
     return (
         <div>
           <div className="article-header">
-            <Input className="article-header-title" size="large" placeholder="输入文章标题" onChange={this.titleChangeHandle} />
+            <Input className="article-header-title" size="large" placeholder="输入文章标题" state={this.state.titleChecked} onChange={this.titleChangeHandle} />
           </div>
           <div>
             <BraftEditor updateArticle={this.updateArticle} />
@@ -167,7 +192,7 @@ class WriteBlogsPage extends Component {
             <div className="article-footer-opt">
               <Button type="primary" size="large" value="save" onClick={this.saveArticleBtn}>发布文章</Button>
               <Button type="secondary" size="large" value="temp" onClick={this.saveArticleBtn}>保存草稿</Button>
-              <Button type="normal" size="large">返回</Button>
+              <Button type="normal" size="large" onClick={() => { this.props.history.push(`${ADMIN_PREFIX}/article`); }}>返回</Button>
             </div>
           </div>
         </div>
@@ -176,7 +201,7 @@ class WriteBlogsPage extends Component {
 }
 
 const mapDispatchToProps = {
-  articleTagsAction,
+  articleAction,
 };
 
 const mapStateToProps = (state) => {

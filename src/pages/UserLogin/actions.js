@@ -51,7 +51,7 @@ export const userLogin = (params) => {
       console.log(response);
       dispatch(userLoginSuccess(response.data));
       if (response.data.code === 200) {
-        dispatch(push(ADMIN_PREFIX));
+        dispatch(replace(ADMIN_PREFIX));
       } else {
         Feedback.toast.error('账号或者密码错误');
       }
@@ -74,7 +74,7 @@ export const checkLogin = () => {
         console.log(response);
         dispatch(userLoginSuccess(response.data));
         if (response.data.code === 200) {
-          dispatch(push(ADMIN_PREFIX));
+          dispatch(replace(ADMIN_PREFIX));
         }
       }
       return response.data;

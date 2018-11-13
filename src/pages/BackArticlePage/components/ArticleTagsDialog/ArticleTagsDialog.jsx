@@ -7,7 +7,6 @@ import { tagsAction } from '../../../BackTagsPage/actions';
 import injectReducer from '../../../../utils/injectReducer';
 import reducer from '../../../BackTagsPage/reducer';
 import {
-  TAGS_ACTION_ADD_CHECKED,
   TAGS_ACTION_DELETE,
   TAGS_ACTION_GETTAGSBYUSERID_PAGING,
 } from '../../../BackTagsPage/contants';
