@@ -53,7 +53,8 @@ class MainRoutes extends Component {
     const redirectData = this.getRedirectData();
     return (
       <Switch>
-        <Route path="/manage/article/write" component={WriteBlogsPage} />
+        {/* 写博客路由 */}
+        <Route path="/manage/article/write/:id" component={WriteBlogsPage} />
         {/* 渲染权限路由表 */}
         {routerData.map(this.renderNormalRoute)}
         {/* 路由重定向，嵌套路由默认重定向到当前菜单的第一个路由 */}

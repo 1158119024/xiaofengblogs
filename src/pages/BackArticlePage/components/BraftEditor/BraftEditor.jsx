@@ -33,10 +33,12 @@ const list = [
 BraftEditor.use(ColorPicker({
   theme: 'light', // 支持dark和light两种主题，默认为dark
 }));
+
 export default class CustomBraftEditor extends Component {
 
   static propTypes = {
     updateArticle: PropTypes.func.isRequired, // 富文本内容修改
+    articleContent: PropTypes.string.isRequired, // 初始值
   };
 
   state = {
@@ -44,9 +46,24 @@ export default class CustomBraftEditor extends Component {
     qualityValue: '标清',
     quality: 0.3,
   };
+  componentDidMount() {
+    this.isLivinig = true;
+    // 1秒后更改编辑器内容
+    setTimeout(this.setEditorContentAsync, 1000);
+  }
 
+  componentWillUnmount() {
+    this.isLivinig = false;
+  }
+  // 1秒后初始化值
+  setEditorContentAsync = () => {
+    this.isLivinig && this.setState({
+      editorState: BraftEditor.createEditorState(this.props.articleContent),
+    });
+  };
+
+  // 图片清晰度变化
   qualityHandleChange = (event) => {
-    console.log(event.target.getAttribute('value'));
     const qualityValue = event.target.textContent;
     const quality = event.target.getAttribute('value');
     this.setState({
@@ -70,7 +87,6 @@ export default class CustomBraftEditor extends Component {
       // 假设服务端直接返回文件上传后的地址
       // 上传成功后调用param.success并传入上传后的文件地址
       const responseData = JSON.parse(xhr.responseText);
-      console.log(responseData);
       // 判断
       if (responseData && responseData.code === 200) {
         param.success({
@@ -120,7 +136,6 @@ export default class CustomBraftEditor extends Component {
   // 预览样式
   buildPreviewHtml = () => {
     const { editorState } = this.state;
-    console.log(editorState);
     if (!editorState) {
       return '';
     }
@@ -205,11 +220,10 @@ export default class CustomBraftEditor extends Component {
         </div>,
       },
     ];
-
     const editorProps = {
       height: 500,
       contentFormat: 'html',
-      initialContent: '<p></p>',
+      value: this.state.editorState,
       onChange: this.handleChange,
       onRawChange: this.handleRawChange,
       extendControls: extendControls,

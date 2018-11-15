@@ -16,6 +16,13 @@ export async function del(params) {
     method: 'get',
   });
 }
+// 状态删除
+// export async function delState(params) {
+//   return axios({
+//     url: `xiaofeng/article/deleteState/${params}`,
+//     method: 'get',
+//   });
+// }
 // 修改
 export async function update(params) {
   return axios({

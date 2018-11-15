@@ -3,6 +3,7 @@ import { Button, Input, Switch, Dialog, Feedback } from '@icedesign/base';
 import IceLabel from '@icedesign/label';
 import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
+import { withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
 import BraftEditor from '../BraftEditor/index';
@@ -14,24 +15,77 @@ import './writeBlogs.scss';
 import ArticleTagsDialog2 from '../ArticleTagsDialog/ArticleTagsDialog2';
 import { ADMIN_PREFIX, getColor } from '../../../../config/constants';
 import { ARTICLE_ACTION_ADD, ARTICLE_ACTION_DELETE, ARTICLE_ACTION_UPDATE, ARTICLE_ACTION_GETARTICLEBYID, ARTICLE_ACTION_GETARTICLESBYUSERID } from '../../contants';
-import { withRouter } from 'react-router-dom';
+
+
+let articleResultInit = {
+  code: 0,
+  data: {
+    commendNum: 0,
+    isPrivate: false,
+    title: '',
+    userId: 1,
+    tagsId: '',
+    content: '',
+    commentNum: 0,
+    createTime: '',
+    isTop: false,
+    id: 0,
+    state: '',
+    browseNum: 0,
+  },
+  msg: '',
+};
 
 @withRouter
 class WriteBlogsPage extends Component {
 
   state = {
+    id: 0, // 文章id
+    saveOrUpdate: 'save', // 保存还是修改
     title: '',
     titleChecked: '', // 标题校验
     isPrivate: false, // 是否私密
     isTop: false, // 是否置顶
     tagVisible: false, // tag弹窗的状态
-    articleContent: '', // 富文本中的内容
+    articleContent: '<p></p>', // 富文本中的内容
     isCheckedTag: true, // 是否需要保存选中的标签(标签框一使用)
     checkedTag: [], // 保存选中标签key
     checkedTag2: [], // 保存上一次选中的标签(标签框二使用)
     checkedTagValue: [], // 保存选中标签的值
     checkedTagValue2: [], // 保存上一次选中标签的值
   };
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    // 修改时获取初始值
+    if (id !== '-1') {
+      this.props.articleAction(id, ARTICLE_ACTION_GETARTICLEBYID).then((res) => {
+        console.log(res);
+        if (res.code === 200) {
+          console.log(res.data);
+          const { title, tagsId, content, tagList, isTop, id, isPrivate } = res.data;
+          // 改变格式，渲染
+          const checkedTagValue = [];
+          const checkedTag = [];
+          for (let item of tagList) {
+            console.log(item);
+            checkedTagValue.push({ value: `${item.id}`, label: item.tagName });
+            checkedTag.push(`${item.id}`);
+          }
+          this.setState({
+            title,
+            isPrivate,
+            isTop,
+            articleContent: content,
+            checkedTag,
+            checkedTagValue,
+            id,
+            saveOrUpdate: 'update',
+          });
+        }
+      });
+    }
+  }
 
   // 私密
   privateHandleChange = (checked) => {
@@ -81,23 +135,27 @@ class WriteBlogsPage extends Component {
 
   // 保存文章按钮
   saveArticleBtn = (event) => {
-    const { isPrivate, isTop, articleContent, checkedTag, title } = this.state;
+    const { isPrivate, isTop, articleContent, checkedTag, title, saveOrUpdate, id } = this.state;
     if (!this.checkTitle(title)) {
       return '';
     }
-    let state = event.target.value;
+    let isSkip = false; // 是否需要跳转页面
+    let state = event.target.value; // 发布，还是草稿，1：发布。2：草稿
     if (state === 'save') {
       state = '1';
-    } else {
+      isSkip = true;
+    } else if (state === 'update') {
+      state = '1';
+    } else if (state === 'temp') {
       state = '2';
     }
     let tagsId = ',';
     for (const tag of checkedTag) {
       tagsId += `${tag},`;
     }
-    const params = { state, isPrivate, isTop, title, content: articleContent, tagsId };
-    console.log(params);
-    this.props.articleAction(params, ARTICLE_ACTION_ADD);
+    const params = { state, isPrivate, isTop, title, content: articleContent, tagsId, id, isSkip };
+    console.log(saveOrUpdate);
+    this.props.articleAction(params, saveOrUpdate === 'save' ? ARTICLE_ACTION_ADD : ARTICLE_ACTION_UPDATE);
   };
 
   // 校验标题
@@ -149,10 +207,10 @@ class WriteBlogsPage extends Component {
     return (
         <div>
           <div className="article-header">
-            <Input className="article-header-title" size="large" placeholder="输入文章标题" state={this.state.titleChecked} onChange={this.titleChangeHandle} />
+            <Input className="article-header-title" size="large" placeholder="输入文章标题" value={this.state.title} state={this.state.titleChecked} onChange={this.titleChangeHandle} />
           </div>
           <div>
-            <BraftEditor updateArticle={this.updateArticle} />
+            <BraftEditor updateArticle={this.updateArticle} articleContent={this.state.articleContent} />
           </div>
           <div className="article-footer">
             <div className="article-footer-tag">
@@ -183,17 +241,24 @@ class WriteBlogsPage extends Component {
             </div>
             <div className="article-footer-private">
               <span className="article-footer-private-key article-footer-key">私密文章：</span>
-              <Switch checkedChildren="开" onChange={this.privateHandleChange} unCheckedChildren="关" size="small" className="article-footer-private-value" />
+              <Switch checkedChildren="开" onChange={this.privateHandleChange} unCheckedChildren="关" size="small" className="article-footer-private-value" checked={this.state.isPrivate} />
             </div>
             <div className="article-footer-private">
               <span className="article-footer-private-key article-footer-key">置顶文章：</span>
-              <Switch checkedChildren="开" onChange={this.topHandleChange} unCheckedChildren="关" size="small" className="article-footer-private-value" />
+              <Switch checkedChildren="开" onChange={this.topHandleChange} unCheckedChildren="关" size="small" className="article-footer-private-value" checked={this.state.isTop} />
             </div>
             <div className="article-footer-opt">
               <Button type="primary" size="large" value="save" onClick={this.saveArticleBtn}>发布文章</Button>
-              <Button type="secondary" size="large" value="temp" onClick={this.saveArticleBtn}>保存草稿</Button>
+              {
+                this.state.saveOrUpdate === 'save' ?
+                  <Button type="secondary" size="large" value="temp" onClick={this.saveArticleBtn}>保存草稿</Button>
+                  :
+                  <Button type="secondary" size="large" value="update" onClick={this.saveArticleBtn}>保存修改</Button>
+              }
+
               <Button type="normal" size="large" onClick={() => { this.props.history.push(`${ADMIN_PREFIX}/article`); }}>返回</Button>
             </div>
+
           </div>
         </div>
     );

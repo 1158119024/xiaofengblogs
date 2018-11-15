@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import { DatePicker, Select, Search, Card, Balloon, moment, Loading, Pagination, Nav, Icon, Menu } from '@icedesign/base';
 import reducer from './reducer';
-
+import { withRouter } from 'react-router-dom';
 import { ADMIN_PREFIX, DATE_FORMAT } from '../../config/constants';
 import { CustomIcon } from '../../config/iconfont';
 import { articleAction } from './actions';
@@ -44,18 +44,19 @@ let articleResultInit = {
     hasPreviousPage: false,
     navigateLastPage: 2,
     isFirstPage: true,
-    tagsList: [],
   },
+  tagsList: [],
   msg: '',
 };
+@withRouter
 class BackArticlePage extends Component {
-
   state = {
     searchTitle: '', // 搜索的标题
     tagId: '', // 标签id
     startTime: '', // 区间：开始时间
     endTime: '', // 区间： 结束时间
     currentPage: 1, // 当前页
+    isPrivate: false,
     filter: [ // 状态查询的数据
       {
         text: '已发布',
@@ -68,17 +69,27 @@ class BackArticlePage extends Component {
       {
         text: '回收站',
         value: '0',
+      },
+      {
+        text: '私密',
+        value: '-1',
       }],
-    state: 1, // 状态
+    state: '1', // 状态
   };
 
   componentDidMount() {
     this.getArticleByUserId({});
   }
+  // 写博客
+  writeArticle = () => {
+    const { history } = this.props;
+    history.push(`${ADMIN_PREFIX}/article/write/-1`);
+  };
+
   // 查询
-  getArticleByUserId = (params, initLoadTag) => {
-    const { currentPage, startTime, endTime, state, searchTitle, tagId } = this.state;
-    this.props.articleAction({ title: searchTitle, pageNum: currentPage, startTime, endTime, state, tagId, ...params }, ARTICLE_ACTION_GETARTICLESBYUSERID, initLoadTag);
+  getArticleByUserId = (params) => {
+    const { currentPage, startTime, endTime, state, searchTitle, tagId, isPrivate } = this.state;
+    this.props.articleAction({ title: searchTitle, pageNum: currentPage, startTime, endTime, state, tagId, isPrivate, ...params }, ARTICLE_ACTION_GETARTICLESBYUSERID);
   };
   // 选择分页
   pageChangeHandle = (current) => {
@@ -90,11 +101,20 @@ class BackArticlePage extends Component {
   };
   // 状态改变
   onFilterChangeHandle = (value) => {
-    this.setState({
-      state: value,
-    }, () => {
-      this.getArticleByUserId();
-    });
+    if (value === '-1') { // 私密文章，没有对应的状态，是一个字段控制的，所以不能改变状态
+      this.setState({
+        isPrivate: true,
+      }, () => {
+        this.getArticleByUserId();
+      });
+    } else {
+      this.setState({
+        state: value,
+        isPrivate: false,
+      }, () => {
+        this.getArticleByUserId();
+      });
+    }
   };
 
   // 搜索文章
@@ -108,8 +128,42 @@ class BackArticlePage extends Component {
 
   // 删除文章
   deleteArticle = (event) => {
-    this.props.articleAction(event.target.getAttribute('value'), ARTICLE_ACTION_DELETE).then((res) => {
-      if (res.code === 200) {
+    const id = event.target.getAttribute('value');
+    const { state } = this.state;
+    if (state === '0') {
+      // 彻底删除
+      this.props.articleAction(id, ARTICLE_ACTION_DELETE).then((res) => {
+        if (res && res.code === 200) {
+          this.getArticleByUserId();
+        }
+      });
+    } else {
+      // 状态删除
+      this.props.articleAction({ id, state: '0' }, ARTICLE_ACTION_UPDATE).then((res) => {
+        if (res && res.code === 200) {
+          this.getArticleByUserId();
+        }
+      });
+    }
+  };
+
+  // 还原文章
+  restoreArticle = (event) => {
+    const id = event.target.getAttribute('value');
+    // 还原到草稿件状态
+    this.props.articleAction({ id, state: '2' }, ARTICLE_ACTION_UPDATE).then((res) => {
+      if (res && res.code === 200) {
+        this.getArticleByUserId();
+      }
+    });
+  };
+
+  // 置顶切换
+  topChange = (event) => {
+    const id = event.target.getAttribute('value');
+    const isTop = event.target.getAttribute('top');
+    this.props.articleAction({ id, isTop: isTop }, ARTICLE_ACTION_UPDATE).then((res) => {
+      if (res && res.code === 200) {
         this.getArticleByUserId();
       }
     });
@@ -137,7 +191,7 @@ class BackArticlePage extends Component {
   };
   // 格式化标签的选择器datasource
   tagsDataHandle = (obj) => {
-    let dataSource = [];
+    const dataSource = [];
     if (obj) {
       obj.map((item, index) => (
         dataSource.push({ value: `,${item.id},`, label: item.tagName })
@@ -146,7 +200,7 @@ class BackArticlePage extends Component {
     return dataSource;
   };
   // 选择标签时
-  onTagSelect = (value, option) =>{
+  onTagSelect = (value, option) => {
     this.setState({
       tagId: value,
     });
@@ -158,10 +212,10 @@ class BackArticlePage extends Component {
     if (articleResult && articleResult.code === 200) {
       articleResultInit = this.props.articleResult.articleResult;
     }
-    console.log(articleResultInit)
+    console.log(articleResultInit);
     return (
       <div className="article-list">
-        <IcePanel status="info" style={{marginBottom: '10px'}}>
+        <IcePanel status="info" style={{ marginBottom: '10px' }}>
           <IcePanel.Header className="article-list-header">
             <div className="article-list-header-content">
               <span>发布时间：</span>
@@ -190,8 +244,7 @@ class BackArticlePage extends Component {
                   autoWidth={false}
                   showSearch
                   hasClear
-                >
-                </Select>
+                />
                 <Search
                   size="medium"
                   type="normal"
@@ -210,11 +263,11 @@ class BackArticlePage extends Component {
           <IcePanel.Body>
             <Loading shape="fusion-reactor" visible={isLoading} style={{ width: '100%' }}>
               <div className="article-list-content" style={{ height: '640px', overflow: 'auto' }}>
-              {
-                articleResultInit.data.list ? articleResultInit.data.list.map((item, index) => (
+                {
+                articleResultInit.data.list && articleResultInit.data.list.length > 0 ? articleResultInit.data.list.map((item, index) => (
                   <Card
                     key={index}
-                    title={<Link to={`/article/${item.id}`} className="article-list-content-title">{item.title}</Link>}
+                    title={<Link to={`article/write/${item.id}`} className="article-list-content-title">{item.title}</Link>}
                     bodyHeight="auto"
                     className="article-list-content-card"
                   >
@@ -247,26 +300,32 @@ class BackArticlePage extends Component {
                       评论
                       </Balloon>
                       <div className="article-list-content-card-bottom-right">
-                        <Link to={`/article/${item.id}`} className="right-opt">
-                          <span>查看</span>
-                        </Link>
-                        <Link to={''} className="right-opt">
-                          <span>{item.isTop ? '取消置顶' : '置顶'}</span>
-                        </Link>
+                        <span className="right-opt" value={item.id}>查看</span>
+                        <span className="right-opt" value={item.id} top={`${!item.isTop}`} onClick={this.topChange}>{item.isTop ? '取消置顶' : '置顶'}</span>
+                        {
+                          this.state.state === '0' ? <span className="right-opt" value={item.id} onClick={this.restoreArticle}>还原</span> : ''
+                        }
                         <span className="right-opt right-opt-del" value={item.id} onClick={this.deleteArticle}>
-                          删除
+                          {
+                            this.state.state === '0' ? '彻底删除' : '删除'
+                          }
                         </span>
                       </div>
                     </div>
                   </Card>
-                )) : ''
+                )) : (
+                  <div className="article-list-content-none">
+                    没有符合的文章，来写一篇把。
+                    <CustomIcon className="balloon-icon" size="xl" type="combinedshapecopy2" onClick={this.writeArticle} />
+                  </div>
+                )
               }
               </div>
               <Pagination style={{ textAlign: 'center' }} current={this.state.currentPage} hideOnlyOnePage onChange={this.pageChangeHandle} total={articleResultInit.data.total} pageSize={articleResultInit.data.pageSize} />
             </Loading>
           </IcePanel.Body>
         </IcePanel>
-        <Link to="/manage/article/write" >写博客</Link>
+        <Link to="/manage/article/write/-1" >写博客</Link>
       </div>
     );
   }

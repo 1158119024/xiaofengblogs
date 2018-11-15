@@ -47,7 +47,9 @@ export const articleAction = (params, type) => {
           response = await add(params);
           if (response.data.code === 200) {
             Feedback.toast.success(response.data.msg);
-            dispatch(push(`${ADMIN_PREFIX}/article`));
+            if (params.isSkip) {
+              dispatch(push(`${ADMIN_PREFIX}/article`));
+            }
           }
           return response.data;
         case ARTICLE_ACTION_DELETE:
@@ -55,14 +57,20 @@ export const articleAction = (params, type) => {
           break;
         case ARTICLE_ACTION_UPDATE:
           response = await update(params);
-          break;
+          if (response.data.code === 200) {
+            Feedback.toast.success(response.data.msg);
+            if (params.isSkip) {
+              dispatch(push(`${ADMIN_PREFIX}/article`));
+            }
+          }
+          return response.data;
         case ARTICLE_ACTION_GETARTICLEBYID:
           response = await getArticleById(params);
           break;
         case ARTICLE_ACTION_GETARTICLESBYUSERID:
           response = await getArticlesByUserId(params);
           dispatch(tagsAction({ pageNum: 1, pageSize: 1000 }, TAGS_ACTION_GETTAGSBYUSERID_PAGING)).then(res => {
-            if (res.code === 200) {
+            if (res && res.code === 200) {
               response.data.data.tagsList = res.data.list;
             } else {
               Feedback.toast.error('获取标签失败！！');
