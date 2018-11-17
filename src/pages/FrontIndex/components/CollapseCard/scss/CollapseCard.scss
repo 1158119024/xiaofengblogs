@@ -8,6 +8,7 @@
   cursor: pointer;
   width: fit-content;
   color: #666666;
+  font-size: 25px;
 }
 .info-title:hover{
   color: #999999;
@@ -17,4 +18,9 @@
 }
 .link:active{
   text-decoration: none;
+}
+
+.collapse-card-top{
+  position: absolute;
+  color: #F15A24;
 }

@@ -5,6 +5,7 @@ import connect from 'react-redux/es/connect/connect';
 import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
+import PropTypes from 'prop-types';
 
 import BraftEditor from '../BraftEditor/index';
 import { CustomIcon } from '../../../../config/iconfont';
@@ -38,6 +39,10 @@ let articleResultInit = {
 
 @withRouter
 class WriteBlogsPage extends Component {
+
+  static propTypes = {
+    articleAction: PropTypes.func.isRequired, // crud操作函数
+  };
 
   state = {
     id: 0, // 文章id

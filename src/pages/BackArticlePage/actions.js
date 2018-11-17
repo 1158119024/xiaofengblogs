@@ -7,8 +7,10 @@ import { ARTICLE_ACTION_FAILURE,
   ARTICLE_ACTION_DELETE,
   ARTICLE_ACTION_GETARTICLEBYID,
   ARTICLE_ACTION_GETARTICLESBYUSERID,
-  ARTICLE_ACTION_UPDATE } from './contants';
-import { add, del, update, getArticleById, getArticlesByUserId } from '../../api/article';
+  ARTICLE_ACTION_UPDATE,
+  ARTICLE_ACTION_UPDATE_STATE,
+  ARTICLE_ACTION_GETARTICLES } from './contants';
+import { add, del, update, getArticleById, getArticlesByUserId, updateState, getArticles } from '../../api/article';
 import { ADMIN_PREFIX } from '../../config/constants';
 import { tagsAction } from '../BackTagsPage/actions';
 import { TAGS_ACTION_GETTAGSBYUSERID_PAGING } from '../BackTagsPage/contants';
@@ -64,6 +66,15 @@ export const articleAction = (params, type) => {
             }
           }
           return response.data;
+        case ARTICLE_ACTION_UPDATE_STATE:
+          response = await updateState(params);
+          if (response.data.code === 200) {
+            Feedback.toast.success(response.data.msg);
+            if (params.isSkip) {
+              dispatch(push(`${ADMIN_PREFIX}/article`));
+            }
+          }
+          return response.data;
         case ARTICLE_ACTION_GETARTICLEBYID:
           response = await getArticleById(params);
           break;
@@ -78,6 +89,9 @@ export const articleAction = (params, type) => {
             dispatch(articleActionSuccess(response.data));
           });
           return response.data;
+        case ARTICLE_ACTION_GETARTICLES:
+          response = await getArticles(params);
+          break;
         default:
           Feedback.toast.error('错误的选择！！');
           break;

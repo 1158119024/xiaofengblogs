@@ -13,7 +13,7 @@ html, body{
   padding: 0px;
   height: 100%;
   position: relative;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-bottom: 0px !important;
   background-color: $layout-body-color !important;
 }
@@ -27,7 +27,7 @@ html, body{
   width: 16%;
   height: 95%;
   display: inline-block;
-  background-color: #fefefe;
+  background-color: #ffffff;
   position: fixed;
   border-radius: 10px;
 
@@ -101,16 +101,7 @@ html, body{
   }
 }
 
-//头
-.layout-header{
-  height: 40px;
-  position: relative;
 
-  .search{
-    position: absolute;
-    right: 0;
-  }
-}
 
 //内容区域
 .layout-content{

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import IceContainer from '@icedesign/container';
+import IceTitle from '@icedesign/title';
 import { Icon, Grid, Balloon, Badge } from '@icedesign/base';
 import { Link } from 'react-router-dom';
 import Label from '@icedesign/label';
@@ -36,17 +37,17 @@ export default class CollapseCard extends Component {
     const collapseStyle = collapse ? styles.collapse : null;
     return (
       <div className="collapse-card">
+        <CustomIcon className="collapse-card-top" size="xxxl" type="top" />
         <IceContainer>
           <div style={styles.summaryInfo}>
-            <img
+            {/*<img
               style={styles.itemLogo}
               src={require('./images/TB1EBQ.hZLJ8KJjy0FnXXcFDpXa-300-300.png')}
               alt=""
-            />
+            />*/}
             <div style={styles.infoIntro}>
               <Link to="/article/" className="link" >
-                <h1 className="info-title">
-                  戴森
+                <IceTitle className="info-title" text="戴森" subtitle={<span>
                   <Balloon align="tr" triggerType="hover" className="balloon-message" closable={false} trigger={
                     <sup style={{ marginLeft: '5px' }} >
                       <Label style={{ backgroundColor: '#fcdbd9', color: '#f04134' }}>
@@ -56,17 +57,10 @@ export default class CollapseCard extends Component {
                   }>
                     刚出炉的！
                   </Balloon>
-                  <Balloon align="tr" triggerType="hover" className="balloon-message" closable={false} trigger={
-                    <sup style={{ marginLeft: '5px' }}>
-                      <Label style={{ backgroundColor: '#f04134', color: '#fff' }}>
-                        <CustomIcon size="xs" type="zhiding3" />
-                        置顶
-                      </Label>
-                    </sup>
-                  }>
-                    置顶？
-                  </Balloon>
-                </h1>
+                </span>}>
+
+
+                </IceTitle>
               </Link>
 
             <p style={styles.infoDesc}>

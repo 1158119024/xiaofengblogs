@@ -9,7 +9,7 @@ export const LOGIN_PATH = `${USER_PREFIX}/login`;// 登录路径
 
 export const usernameGetFun = () => {
   // console.log(window.location.href);
-  return '123';
+  return '1';
 };
 
 export const getRandom = (min, max) => {

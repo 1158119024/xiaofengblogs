@@ -176,7 +176,7 @@ class FrontLeftPage extends Component {
             <div className="balloon-list">
               {
                 balloonIcon.map((item, index) => (
-                  <Link to={item.url} key={index}>
+                  <Link to={item.url} key={index} style={{ textDecoration: 'none' }}>
                     <Balloon
                       trigger={<span>{item.icon}</span>}
                       triggerType="hover"
@@ -197,7 +197,7 @@ class FrontLeftPage extends Component {
             <div className="layout-left-footer-icon">
               {
                 footerIcon.map((item, index) => (
-                  <Link to={item.url} key={index}>
+                  <Link to={item.url} key={index} style={{ textDecoration: 'none' }}>
                     <Balloon
                       trigger={<span>{item.icon}</span>}
                       triggerType="hover"

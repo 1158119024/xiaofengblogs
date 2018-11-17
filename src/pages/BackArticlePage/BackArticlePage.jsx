@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import IcePanel from '@icedesign/panel';
 import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
-import { DatePicker, Select, Search, Card, Balloon, moment, Loading, Pagination, Nav, Icon, Menu } from '@icedesign/base';
+import { DatePicker, Select, Search, Card, Balloon, moment, Loading, Pagination, Nav, Icon, Menu, Button } from '@icedesign/base';
 import reducer from './reducer';
-import { withRouter } from 'react-router-dom';
 import { ADMIN_PREFIX, DATE_FORMAT } from '../../config/constants';
 import { CustomIcon } from '../../config/iconfont';
 import { articleAction } from './actions';
@@ -13,6 +12,7 @@ import injectReducer from '../../utils/injectReducer';
 import { ARTICLE_ACTION_ADD,
   ARTICLE_ACTION_DELETE,
   ARTICLE_ACTION_UPDATE,
+  ARTICLE_ACTION_UPDATE_STATE,
   ARTICLE_ACTION_GETARTICLEBYID,
   ARTICLE_ACTION_GETARTICLESBYUSERID } from './contants';
 
@@ -26,18 +26,18 @@ let articleResultInit = {
   data: {
     startRow: 1,
     navigatepageNums: [1, 2],
-    lastPage: 2,
+    lastPage: 0,
     prePage: 0,
     hasNextPage: true,
-    nextPage: 2,
+    nextPage: 0,
     pageSize: 10,
     endRow: 10,
     list: [{}],
     pageNum: 1,
     navigatePages: 8,
-    total: 14,
+    total: 0,
     navigateFirstPage: 1,
-    pages: 2,
+    pages: 0,
     size: 10,
     firstPage: 1,
     isLastPage: false,
@@ -139,7 +139,7 @@ class BackArticlePage extends Component {
       });
     } else {
       // 状态删除
-      this.props.articleAction({ id, state: '0' }, ARTICLE_ACTION_UPDATE).then((res) => {
+      this.props.articleAction({ id, state: '0' }, ARTICLE_ACTION_UPDATE_STATE).then((res) => {
         if (res && res.code === 200) {
           this.getArticleByUserId();
         }
@@ -151,7 +151,7 @@ class BackArticlePage extends Component {
   restoreArticle = (event) => {
     const id = event.target.getAttribute('value');
     // 还原到草稿件状态
-    this.props.articleAction({ id, state: '2' }, ARTICLE_ACTION_UPDATE).then((res) => {
+    this.props.articleAction({ id, state: '2' }, ARTICLE_ACTION_UPDATE_STATE).then((res) => {
       if (res && res.code === 200) {
         this.getArticleByUserId();
       }
@@ -162,7 +162,7 @@ class BackArticlePage extends Component {
   topChange = (event) => {
     const id = event.target.getAttribute('value');
     const isTop = event.target.getAttribute('top');
-    this.props.articleAction({ id, isTop: isTop }, ARTICLE_ACTION_UPDATE).then((res) => {
+    this.props.articleAction({ id, isTop: isTop }, ARTICLE_ACTION_UPDATE_STATE).then((res) => {
       if (res && res.code === 200) {
         this.getArticleByUserId();
       }
@@ -256,6 +256,10 @@ class BackArticlePage extends Component {
                   onFilterChange={this.onFilterChangeHandle}
                   style={{ marginLeft: 10, height: 28 }}
                 />
+                <div className="article-header-category-write" onClick={this.writeArticle} >
+                  <CustomIcon className="write-icon" type="combinedshapecopy2"/>
+                  写博客
+                </div>
               </div>
 
             </div>
@@ -325,7 +329,6 @@ class BackArticlePage extends Component {
             </Loading>
           </IcePanel.Body>
         </IcePanel>
-        <Link to="/manage/article/write/-1" >写博客</Link>
       </div>
     );
   }

@@ -7,6 +7,7 @@ import FrontIndex from '../../pages/FrontIndex';
 import './scss/frontLayout.scss';
 import FrontCollectPage from '../../pages/FrontCollectPage/FrontCollectPage';
 import FrontLeftPage from '../../pages/FrontLeftPage/FrontLeftPage';
+import FrontArticlePage from '../../pages/FrontArticlePage/FrontArticlePage';
 
 export default class FrontLayout extends Component {
 
@@ -16,20 +17,11 @@ export default class FrontLayout extends Component {
         <IceContainer className="layout" style={{ backgroundColor: '#eee', height: 'height: 100%' }}>
           <FrontLeftPage />
           <div className="layout-content">
-            <div className="layout-header">
-              <Search
-                size="medium"
-                type="normal"
-                inputWidth={300}
-                placeholder="需要来点什么吗？"
-                searchText=""
-                className="search"
-              />
-            </div>
             <Switch>
               <Route path="/test" />
               <Route path="/tags" />
               <Route path="/collect" component={FrontCollectPage} />
+              <Route path="/article/:id" component={FrontArticlePage} />
               <Route path="/" component={FrontIndex} />
             </Switch>
 

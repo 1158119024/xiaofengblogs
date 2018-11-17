@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { usernameGetFun } from '../../config/constants';
 
 // --------------------------后台
 // 添加文章
@@ -31,6 +32,15 @@ export async function update(params) {
     data: params,
   });
 }
+
+// 修改状态
+export async function updateState(params) {
+  return axios({
+    url: 'xiaofeng/article/updateState',
+    method: 'post',
+    data: params,
+  });
+}
 // 根据id获取文章
 export async function getArticleById(params) {
   return axios({
@@ -42,6 +52,17 @@ export async function getArticleById(params) {
 export async function getArticlesByUserId(params) {
   return axios({
     url: 'xiaofeng/article/getArticlesByUserId',
+    method: 'post',
+    data: params,
+  });
+}
+
+// ---------------------前端
+// 根据用户id获取文章列表
+export async function getArticles(params) {
+  params.userId = usernameGetFun();
+  return axios({
+    url: 'xiaofeng/article/getArticles',
     method: 'post',
     data: params,
   });

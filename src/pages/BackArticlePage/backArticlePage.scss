@@ -10,13 +10,34 @@
   font-size: 16px;
 
   .article-list-header-content{
-    width: 50%;
+    width: 70%;
     margin: 0 auto;
 
     .article-list-header-category{
       display: inline-block;
       position: absolute;
       margin-top: 2px;
+    }
+
+    .article-header-category-write{
+      box-sizing: border-box;
+      border: 1px solid;
+      color: #999999;
+      border-radius: 10px;
+      padding: 0 4px;
+      cursor: pointer;
+      margin-left: 20px;
+      display: inline-block;
+      position: absolute;
+      width: 100px;
+      height: 32px;
+
+      .write-icon{
+        margin: 0 7px;
+      }
+    }
+    .article-header-category-write:hover{
+      color: #bbbbbb;
     }
   }
 }
