@@ -10,7 +10,7 @@ import injectReducer from '../../utils/injectReducer';
 import reducer from '../BackArticlePage/reducer';
 import { ARTICLE_ACTION_GETARTICLEBYID } from '../BackArticlePage/contants';
 import './frontArticlePage.scss';
-import { DATE_FORMAT, getColor } from '../../config/constants';
+import { DATE_FORMAT, FRONT_PREFIX, getColor } from '../../config/constants';
 import { CustomIcon } from '../../config/iconfont';
 
 let articleResultInit = {
@@ -46,6 +46,11 @@ class FrontArticlePage extends Component {
     this.props.articleAction(id, ARTICLE_ACTION_GETARTICLEBYID);
   }
 
+  handleClick = (item, event) => {
+    const { history } = this.props;
+    history.push(`${FRONT_PREFIX}tags/${item.id}/${item.tagName}/${item.articleNum}`);
+  };
+
   render() {
     const { articleResult, isLoading } = this.props.articleResult;
     if (articleResult && articleResult.code === 200) {
@@ -59,10 +64,10 @@ class FrontArticlePage extends Component {
             <h1 className="article-details-header-title">{articleResultInit.data.title}</h1>
             <div className="article-details-header-time">
               <Balloon
-                trigger={<span><CustomIcon style={{ marginRight: '10px'}} size="small" type="Group" /></span>}
+                trigger={<span><CustomIcon style={{ marginRight: '10px' }} size="small" type="Group" /></span>}
                 triggerType="hover"
                 closable={false}
-                align="tl"
+                align="b"
                 className="balloon-message"
               >
                 发表日期
@@ -73,7 +78,9 @@ class FrontArticlePage extends Component {
               <CustomIcon style={{ marginRight: '10px', color: '#666' }} type="biaoqian2" />
               {
                 articleResultInit.data.tagList && articleResultInit.data.tagList.map((tagItem, tagIndex) => (
-                  <IceLabel className="tag-label" key={tagIndex} style={getColor()}>{tagItem.tagName}</IceLabel>
+                  <IceLabel className="tag-label" style={getColor(tagItem.tagName)} key={tagIndex}>
+                    <span onClick={this.handleClick.bind(this, tagItem)}>{tagItem.tagName}</span>
+                  </IceLabel>
                 ))
               }
             </div>

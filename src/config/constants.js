@@ -12,6 +12,8 @@ export const usernameGetFun = () => {
   return '1';
 };
 
+const map = new Map();
+let i = 0;
 export const getRandom = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -22,7 +24,18 @@ const color = [{ backgroundColor: '#fdd8e7', color: '#f5317f' },
   { backgroundColor: '#cfedf0', color: '#00a2ae' },
   { backgroundColor: '#d2eafb', color: '#108ee9' },
   { backgroundColor: '#e4e2fa', color: '#7265e6' }];
-export const getColor = () => {
-  return color[getRandom(0, color.length - 1)];
+export const getColor = (key) => {
+  console.log(map);
+  let value = map.get(key);
+  if (value) {
+    return value;
+  }
+  if (i < color.length) {
+    value = color[i++];
+  } else {
+    value = color[getRandom(0, 6)];
+  }
+  map.set(key, value);
+  return value;
 };
 

@@ -8,8 +8,9 @@ import { TAGS_ACTION_REQUEST,
   TAGS_ACTION_GETTAGSBYUSERID,
   TAGS_ACTION_UPDATE,
   TAGS_ACTION_RESULT_RESET,
-  TAGS_ACTION_GETTAGSBYUSERID_PAGING } from './contants';
-import { add, del, update, getTagById, getTagsByUserId } from '../../api/tags';
+  TAGS_ACTION_GETTAGSBYUSERID_PAGING,
+  TAGS_ACTION_GETTAGS } from './contants';
+import { add, del, update, getTagById, getTagsByUserId, getTags } from '../../api/tags';
 
 import { usernameGetFun } from '../../config/constants';
 
@@ -114,6 +115,10 @@ export const tagsAction = (params, type, checkedTag = [], params2) => {
           }
           // 拼接上一次的查询记录
           dispatch(getTagsByUserIdSuccess(response.data));
+          return response.data;
+        case TAGS_ACTION_GETTAGS:
+          response = await getTags(params);
+          dispatch(tagsActionSuccess(response.data));
           return response.data;
         default:
           Feedback.toast.error('错误的选择！！');

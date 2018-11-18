@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { usernameGetFun } from '../../config/constants';
 
 // --------------------后台-------------------
 // 添加标签
@@ -40,6 +41,15 @@ export async function getTagsByUserId(params) {
   }
   return axios({
     url: '/xiaofeng/tags/getTagsByUserId',
+    method: 'post',
+    data: params,
+  });
+}
+// 前台饼图 根据用户id查询标签
+export async function getTags(params) {
+  params.userId = usernameGetFun();
+  return axios({
+    url: '/xiaofeng/tags/getTags',
     method: 'post',
     data: params,
   });

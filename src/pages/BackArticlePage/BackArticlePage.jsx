@@ -5,7 +5,7 @@ import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import { DatePicker, Select, Search, Card, Balloon, moment, Loading, Pagination, Nav, Icon, Menu, Button } from '@icedesign/base';
 import reducer from './reducer';
-import { ADMIN_PREFIX, DATE_FORMAT } from '../../config/constants';
+import { ADMIN_PREFIX, DATE_FORMAT, FRONT_PREFIX } from '../../config/constants';
 import { CustomIcon } from '../../config/iconfont';
 import { articleAction } from './actions';
 import injectReducer from '../../utils/injectReducer';
@@ -304,7 +304,7 @@ class BackArticlePage extends Component {
                       评论
                       </Balloon>
                       <div className="article-list-content-card-bottom-right">
-                        <span className="right-opt" value={item.id}>查看</span>
+                        <span className="right-opt" value={item.id} onClick={() => { this.props.history.push(`${FRONT_PREFIX}article/${item.id}`); }}>查看</span>
                         <span className="right-opt" value={item.id} top={`${!item.isTop}`} onClick={this.topChange}>{item.isTop ? '取消置顶' : '置顶'}</span>
                         {
                           this.state.state === '0' ? <span className="right-opt" value={item.id} onClick={this.restoreArticle}>还原</span> : ''

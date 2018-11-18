@@ -8,6 +8,8 @@ import './scss/frontLayout.scss';
 import FrontCollectPage from '../../pages/FrontCollectPage/FrontCollectPage';
 import FrontLeftPage from '../../pages/FrontLeftPage/FrontLeftPage';
 import FrontArticlePage from '../../pages/FrontArticlePage/FrontArticlePage';
+import FrontTagsPage from '../../pages/FrontTagsPage';
+import TagsDetailsPage from '../../pages/FrontTagsPage/components/TagsDetailsPage';
 
 export default class FrontLayout extends Component {
 
@@ -19,7 +21,8 @@ export default class FrontLayout extends Component {
           <div className="layout-content">
             <Switch>
               <Route path="/test" />
-              <Route path="/tags" />
+              <Route path="/tags" exact component={FrontTagsPage} />
+              <Route path="/tags/:id/:tagName/:articleNum" component={TagsDetailsPage} />
               <Route path="/collect" component={FrontCollectPage} />
               <Route path="/article/:id" component={FrontArticlePage} />
               <Route path="/" component={FrontIndex} />

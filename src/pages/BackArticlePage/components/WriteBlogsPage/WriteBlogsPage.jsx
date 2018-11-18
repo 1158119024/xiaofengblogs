@@ -223,7 +223,7 @@ class WriteBlogsPage extends Component {
               <div className="article-footer-tag-value">
                 {
                   this.state.checkedTagValue.map((item, index) => (
-                    <IceLabel key={index} style={getColor()}>{item.label}</IceLabel>
+                    <IceLabel key={index} style={getColor(item.label)}>{item.label}</IceLabel>
                   ))
                 }
               </div>
