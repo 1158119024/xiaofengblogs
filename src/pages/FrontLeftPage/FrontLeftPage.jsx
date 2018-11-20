@@ -28,7 +28,7 @@ const balloonIcon = [
   {
     icon: <CustomIcon className="balloon-icon" size={iconSize} type="guidang1" />,
     balloon: '归档',
-    url: '/test',
+    url: '/archives',
   },
   {
     icon: <CustomIcon className="balloon-icon" size={iconSize} type="biaoqian" />,

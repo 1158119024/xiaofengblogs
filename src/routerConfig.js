@@ -15,6 +15,7 @@ import BackTagsPage from './pages/BackTagsPage';
 import Markdown from './pages/Markdown';
 import BackArticlePage from './pages/BackArticlePage';
 import WriteBlogsPage from './pages/BackArticlePage/components/WriteBlogsPage/WriteBlogsPage';
+import BackCollectPage from './pages/BackCollectPage/BackCollectPage';
 
 
 const routerConfig = [
@@ -50,6 +51,11 @@ const routerConfig = [
     path: `${ADMIN_PREFIX}/article`,
     layout: BasicLayout,
     component: BackArticlePage,
+  },
+  {
+    path: `${ADMIN_PREFIX}/collect`,
+    layout: BasicLayout,
+    component: BackCollectPage,
   },
 ];
 

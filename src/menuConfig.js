@@ -59,6 +59,11 @@ const asideMenuConfig = [
     path: `${ADMIN_PREFIX}/article`,
     icon: 'home',
   },
+  {
+    name: '我的收藏',
+    path: `${ADMIN_PREFIX}/collect`,
+    icon: 'home',
+  },
 ];
 
 export { headerMenuConfig, asideMenuConfig };

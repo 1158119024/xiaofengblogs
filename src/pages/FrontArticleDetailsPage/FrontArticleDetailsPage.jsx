@@ -9,7 +9,7 @@ import { articleAction } from '../BackArticlePage/actions';
 import injectReducer from '../../utils/injectReducer';
 import reducer from '../BackArticlePage/reducer';
 import { ARTICLE_ACTION_GETARTICLEBYID } from '../BackArticlePage/contants';
-import './frontArticlePage.scss';
+import './frontArticleDetailsPage.scss';
 import { DATE_FORMAT, FRONT_PREFIX, getColor } from '../../config/constants';
 import { CustomIcon } from '../../config/iconfont';
 
@@ -34,7 +34,7 @@ let articleResultInit = {
   msg: '',
 };
 
-class FrontArticlePage extends Component {
+class FrontArticleDetailsPage extends Component {
 
   static propTypes = {
     articleAction: PropTypes.func.isRequired, // crud操作函数
@@ -113,4 +113,4 @@ const withReducer = injectReducer({ key: 'articleResult', reducer });
 export default compose(
   withReducer,
   withConnect
-)(FrontArticlePage);
+)(FrontArticleDetailsPage);

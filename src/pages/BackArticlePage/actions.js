@@ -9,8 +9,9 @@ import { ARTICLE_ACTION_FAILURE,
   ARTICLE_ACTION_GETARTICLESBYUSERID,
   ARTICLE_ACTION_UPDATE,
   ARTICLE_ACTION_UPDATE_STATE,
-  ARTICLE_ACTION_GETARTICLES } from './contants';
-import { add, del, update, getArticleById, getArticlesByUserId, updateState, getArticles } from '../../api/article';
+  ARTICLE_ACTION_GETARTICLES,
+  ARTICLE_ACTION_GETARCHIVESBYCREATETIME } from './contants';
+import { add, del, update, getArticleById, getArticlesByUserId, updateState, getArticles, getArchivesByCreateTime } from '../../api/article';
 import { ADMIN_PREFIX } from '../../config/constants';
 import { tagsAction } from '../BackTagsPage/actions';
 import { TAGS_ACTION_GETTAGSBYUSERID_PAGING } from '../BackTagsPage/contants';
@@ -91,7 +92,12 @@ export const articleAction = (params, type) => {
           return response.data;
         case ARTICLE_ACTION_GETARTICLES:
           response = await getArticles(params);
-          break;
+          dispatch(articleActionSuccess(response.data));
+          return response.data;
+        case ARTICLE_ACTION_GETARCHIVESBYCREATETIME:
+          response = await getArchivesByCreateTime(params);
+          dispatch(articleActionSuccess(response.data));
+          return response.data;
         default:
           Feedback.toast.error('错误的选择！！');
           break;

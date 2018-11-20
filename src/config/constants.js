@@ -25,7 +25,6 @@ const color = [{ backgroundColor: '#fdd8e7', color: '#f5317f' },
   { backgroundColor: '#d2eafb', color: '#108ee9' },
   { backgroundColor: '#e4e2fa', color: '#7265e6' }];
 export const getColor = (key) => {
-  console.log(map);
   let value = map.get(key);
   if (value) {
     return value;
@@ -37,5 +36,17 @@ export const getColor = (key) => {
   }
   map.set(key, value);
   return value;
+};
+
+const colorRandom = [{ color: '#f0d0e0' },
+  { color: '#f0d0d0' },
+  { color: '#f0e0c0' },
+  { color: '#c0e0d0' },
+  { color: '#cfe0f0' },
+  { color: '#e7aafa' },
+  { color: '#F7AB99' },
+  { color: '#cccccc' }];
+export const getColorRandom = () => {
+  return colorRandom[getRandom(0, 7)];
 };
 

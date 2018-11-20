@@ -1,0 +1,37 @@
+.archives-card-list{
+
+  .archives-card{
+    background-color: #fff;
+    margin: 20px 0;
+
+    .archives-card-header{
+      border-left: 7px solid;
+      padding: 20px;
+      cursor: pointer;
+      color: #666666;
+    }
+    .archives-card-header:hover{
+      color: #888888;
+    }
+
+    .archives-card-content{
+
+      .archives-card-content-div{
+        padding: 0 10px;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+
+        .archives-card-content-div-span{
+          position: absolute;
+          font-size: 16px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: #fff;
+        }
+      }
+    }
+  }
+
+}

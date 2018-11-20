@@ -7,9 +7,11 @@ import FrontIndex from '../../pages/FrontIndex';
 import './scss/frontLayout.scss';
 import FrontCollectPage from '../../pages/FrontCollectPage/FrontCollectPage';
 import FrontLeftPage from '../../pages/FrontLeftPage/FrontLeftPage';
-import FrontArticlePage from '../../pages/FrontArticlePage/FrontArticlePage';
+import FrontArticlePage from '../../pages/FrontArticleDetailsPage/FrontArticleDetailsPage';
 import FrontTagsPage from '../../pages/FrontTagsPage';
 import TagsDetailsPage from '../../pages/FrontTagsPage/components/TagsDetailsPage';
+import FrontArchivesPage from '../../pages/FrontArchivesPage/FrontArchivesPage';
+import FrontArchivesDetailsPage from '../../pages/FrontArchivesDetailsPage';
 
 export default class FrontLayout extends Component {
 
@@ -25,6 +27,8 @@ export default class FrontLayout extends Component {
               <Route path="/tags/:id/:tagName/:articleNum" component={TagsDetailsPage} />
               <Route path="/collect" component={FrontCollectPage} />
               <Route path="/article/:id" component={FrontArticlePage} />
+              <Route path="/archives" exact component={FrontArchivesPage} />
+              <Route path="/archives/:archivesTime/:count" exact component={FrontArchivesDetailsPage} />
               <Route path="/" component={FrontIndex} />
             </Switch>
 

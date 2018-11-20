@@ -67,3 +67,13 @@ export async function getArticles(params) {
     data: params,
   });
 }
+
+// 根据时间进行归档查询
+export async function getArchivesByCreateTime(params) {
+  params.userId = usernameGetFun();
+  return axios({
+    url: 'xiaofeng/article/getArchivesByCreateTime',
+    method: 'post',
+    data: params,
+  });
+}

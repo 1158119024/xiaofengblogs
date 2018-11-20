@@ -17,15 +17,15 @@ export default class UserLayout extends Component {
     return (
       <Layout className="user-layout" style={styles.container}>
         <div className="header">
-          <a href="#" className="meta">
+          {/*<a href="#" className="meta">
             <img
               className="logo"
               src={fengye}
               alt="logo"
             />
             <span className="title" style={{ fontSize: '26px' }}>晓枫博客</span>
-          </a>
-          {/*<p className="desc">飞冰让前端开发简单而友好</p>*/}
+          </a>*/}
+          {/*<p className="desc">记录我的生活</p>*/}
         </div>
 
         <Switch>
