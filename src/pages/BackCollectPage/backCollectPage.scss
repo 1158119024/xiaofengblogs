@@ -1,3 +1,45 @@
 .collect-card{
+  padding: 10px 0;
+}
+.collect-header{
+  position: relative;
+}
+.collect-search{
+  display: inline-block;
+  position: absolute;
+  right: 20px;
+  top: -5px;
+}
+.collect-card-footer{
+  position: relative;
+  color: #999;
 
+  .collect-card-tag{
+    display: inline-block;
+    padding: 0 10px;
+  }
+}
+
+.collect-card-opts{
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  .collect-opt{
+    color: #206DD9;
+    padding: 0 10px;
+    border-right: 1px solid #e9e9e9;
+    cursor: pointer;
+  }
+  .collect-opt:hover{
+    color: #2096E9;
+  }
+  .collect-opt-del{
+    color: red;
+    border-right: none;
+  }
+  .collect-opt-del:hover{
+    color: #FF8200;
+  }
 }

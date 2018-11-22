@@ -6,7 +6,7 @@ import { getRouterData } from './utils/formatter';
 import { asideMenuConfig } from './menuConfig';
 
 import BasicLayout from './layouts/BasicLayout';
-import { ADMIN_PREFIX, USER_PREFIX } from './config/constants';
+import { ADMIN_PREFIX, USER_PREFIX, COLLECT_TOOL } from './config/constants';
 
 import UserLogin from './pages/UserLogin';
 import Dashboard from './pages/Dashboard';
@@ -16,6 +16,7 @@ import Markdown from './pages/Markdown';
 import BackArticlePage from './pages/BackArticlePage';
 import WriteBlogsPage from './pages/BackArticlePage/components/WriteBlogsPage/WriteBlogsPage';
 import BackCollectPage from './pages/BackCollectPage/BackCollectPage';
+import WebCollectToolPage from './pages/WebCollectToolPage';
 
 
 const routerConfig = [
@@ -28,10 +29,6 @@ const routerConfig = [
     path: USER_PREFIX,
     component: UserLogin,
   },
-  // {
-  //   path: FRONT_PREFIX,
-  //   component: FrontIndexLayout,
-  // },
   {
     path: `${ADMIN_PREFIX}/dashboard/monitor`,
     layout: BasicLayout,

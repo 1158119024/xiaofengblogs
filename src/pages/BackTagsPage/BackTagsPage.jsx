@@ -10,7 +10,6 @@ import injectReducer from '../../utils/injectReducer';
 import ServiceCard from './components/ServiceCard';
 import { tagsAction } from './actions';
 import reducer from './reducer';
-import { usernameGetFun } from '../../config/constants';
 import { TAGS_ACTION_ADD,
   TAGS_ACTION_GETTAGSBYUSERID,
   TAGS_ACTION_UPDATE } from './contants';

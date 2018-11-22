@@ -5,12 +5,12 @@ import { Search } from '@icedesign/base';
 
 import FrontIndex from '../../pages/FrontIndex';
 import './scss/frontLayout.scss';
-import FrontCollectPage from '../../pages/FrontCollectPage/FrontCollectPage';
-import FrontLeftPage from '../../pages/FrontLeftPage/FrontLeftPage';
-import FrontArticlePage from '../../pages/FrontArticleDetailsPage/FrontArticleDetailsPage';
+import FrontCollectPage from '../../pages/FrontCollectPage';
+import FrontLeftPage from '../../pages/FrontLeftPage';
+import FrontArticlePage from '../../pages/FrontArticleDetailsPage';
 import FrontTagsPage from '../../pages/FrontTagsPage';
 import TagsDetailsPage from '../../pages/FrontTagsPage/components/TagsDetailsPage';
-import FrontArchivesPage from '../../pages/FrontArchivesPage/FrontArchivesPage';
+import FrontArchivesPage from '../../pages/FrontArchivesPage';
 import FrontArchivesDetailsPage from '../../pages/FrontArchivesDetailsPage';
 
 export default class FrontLayout extends Component {

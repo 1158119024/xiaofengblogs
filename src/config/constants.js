@@ -2,6 +2,7 @@ export const REQUEST_PREFIX = '/#';// 请求前缀
 export const ADMIN_PREFIX = '/manage';// 后台路由前缀
 export const USER_PREFIX = '/user'; // 用户路由前缀
 export const FRONT_PREFIX = '/';// 前台路由前缀
+export const COLLECT_TOOL = '/webtool/:userId';// 前台路由前缀
 
 export const DATE_FORMAT = 'YYYY-MM-DD HH:mm';
 
@@ -23,7 +24,9 @@ const color = [{ backgroundColor: '#fdd8e7', color: '#f5317f' },
   { backgroundColor: '#cfefdf', color: '#00a854' },
   { backgroundColor: '#cfedf0', color: '#00a2ae' },
   { backgroundColor: '#d2eafb', color: '#108ee9' },
-  { backgroundColor: '#e4e2fa', color: '#7265e6' }];
+  { backgroundColor: '#e4e2fa', color: '#7265e6' },
+  { backgroundColor: '#F7AB99', color: '#ffffff' },
+  { backgroundColor: '#cccccc', color: '#ffffff' }];
 export const getColor = (key) => {
   let value = map.get(key);
   if (value) {
@@ -32,7 +35,7 @@ export const getColor = (key) => {
   if (i < color.length) {
     value = color[i++];
   } else {
-    value = color[getRandom(0, 6)];
+    value = color[getRandom(0, 9)];
   }
   map.set(key, value);
   return value;

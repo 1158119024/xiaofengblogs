@@ -32,7 +32,7 @@ let articleResultInit = {
     nextPage: 0,
     pageSize: 10,
     endRow: 10,
-    list: [{}],
+    list: [],
     pageNum: 1,
     navigatePages: 8,
     total: 0,

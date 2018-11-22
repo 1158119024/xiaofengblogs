@@ -1,3 +1,3 @@
-import FrontArticlePage from './FrontArticleDetailsPage';
+import FrontArticleDetailsPage from './FrontArticleDetailsPage';
 
-export default FrontArticlePage;
+export default FrontArticleDetailsPage;

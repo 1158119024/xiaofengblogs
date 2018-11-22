@@ -1,0 +1,46 @@
+.front-collect-card-list{
+  width: 100%;
+
+  .front-collect-card{
+    width: 100%;
+    background-color: #ffffff;
+    margin: 20px 0;
+
+    .front-collect-card-header{
+      padding: 20px;
+      border-left: 7px solid #666;
+
+      .front-collect-card-header-title{
+        cursor: pointer;
+        margin: 0;
+        font-weight: normal;
+        font-size: 24px;
+        text-decoration: none;
+        color: #333333;
+      }
+
+      .front-collect-card-header-title:hover{
+        color: #666666;
+      }
+    }
+
+    .front-collect-card-content{
+      display: block;
+      padding: 20px 30px;
+    }
+
+    .front-collect-card-footer {
+      display: block;
+      margin: 0 30px;
+      padding: 10px 0;
+      border-top: 1px solid #e9e9e9;
+      position: relative;
+
+      .front-collect-card-footer-time{
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+}
