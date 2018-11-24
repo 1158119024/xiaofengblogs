@@ -1,5 +1,5 @@
 *{
-  font-family: "楷体";
+  font-family: "微软雅黑";
 }
 html, body{
   height: 100%;
@@ -114,6 +114,10 @@ html, body{
   position: absolute;
   //right: 16%;
   right: 2%;
+
+  .layout-footer{
+    padding: 20px;
+  }
 }
 
 //布局右侧

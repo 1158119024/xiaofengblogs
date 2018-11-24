@@ -77,3 +77,13 @@ export async function getArchivesByCreateTime(params) {
     data: params,
   });
 }
+
+// 以选中id为中，获取上中下三篇文章
+export async function getArticleAndPreAndNextById(params) {
+  params.userId = usernameGetFun();
+  return axios({
+    url: 'xiaofeng/article/getArticleAndPreAndNextById',
+    method: 'post',
+    data: params,
+  });
+}

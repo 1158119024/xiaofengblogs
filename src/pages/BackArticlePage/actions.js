@@ -10,8 +10,9 @@ import { ARTICLE_ACTION_FAILURE,
   ARTICLE_ACTION_UPDATE,
   ARTICLE_ACTION_UPDATE_STATE,
   ARTICLE_ACTION_GETARTICLES,
-  ARTICLE_ACTION_GETARCHIVESBYCREATETIME } from './contants';
-import { add, del, update, getArticleById, getArticlesByUserId, updateState, getArticles, getArchivesByCreateTime } from '../../api/article';
+  ARTICLE_ACTION_GETARCHIVESBYCREATETIME,
+  ARTICLE_ACTION_GETARTICLEANDPREANDNEXTBYID } from './contants';
+import { add, del, update, getArticleById, getArticlesByUserId, updateState, getArticles, getArchivesByCreateTime, getArticleAndPreAndNextById } from '../../api/article';
 import { ADMIN_PREFIX } from '../../config/constants';
 import { tagsAction } from '../BackTagsPage/actions';
 import { TAGS_ACTION_GETTAGSBYUSERID_PAGING } from '../BackTagsPage/contants';
@@ -76,10 +77,10 @@ export const articleAction = (params, type) => {
             }
           }
           return response.data;
-        case ARTICLE_ACTION_GETARTICLEBYID:
+        case ARTICLE_ACTION_GETARTICLEBYID: // 根据id获取对应的文章
           response = await getArticleById(params);
           break;
-        case ARTICLE_ACTION_GETARTICLESBYUSERID:
+        case ARTICLE_ACTION_GETARTICLESBYUSERID: // 根据用户id获取对应的文章列表即所有的标签
           response = await getArticlesByUserId(params);
           dispatch(tagsAction({ pageNum: 1, pageSize: 1000 }, TAGS_ACTION_GETTAGSBYUSERID_PAGING)).then(res => {
             if (res && res.code === 200) {
@@ -90,12 +91,16 @@ export const articleAction = (params, type) => {
             dispatch(articleActionSuccess(response.data));
           });
           return response.data;
-        case ARTICLE_ACTION_GETARTICLES:
+        case ARTICLE_ACTION_GETARTICLES: // 前台：根据用户id获取所有的文章的列表
           response = await getArticles(params);
           dispatch(articleActionSuccess(response.data));
           return response.data;
-        case ARTICLE_ACTION_GETARCHIVESBYCREATETIME:
+        case ARTICLE_ACTION_GETARCHIVESBYCREATETIME: // 前台：通过创建时间归档查询
           response = await getArchivesByCreateTime(params);
+          dispatch(articleActionSuccess(response.data));
+          return response.data;
+        case ARTICLE_ACTION_GETARTICLEANDPREANDNEXTBYID: // 前台：以选中id为中，获取上下三篇文章
+          response = await getArticleAndPreAndNextById(params);
           dispatch(articleActionSuccess(response.data));
           return response.data;
         default:

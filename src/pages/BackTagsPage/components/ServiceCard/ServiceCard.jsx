@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { moment, Dialog, Input } from '@icedesign/base';
+import { moment, Dialog, Input, Feedback } from '@icedesign/base';
 import IcePanel from '@icedesign/panel';
 
 import { DATE_FORMAT } from '../../../../config/constants';
@@ -23,8 +23,11 @@ export default class ServiceCard extends Component {
     inputState: '',
   };
 
-  deleteHandle = (event) => {
-    const id = event.target.getAttribute('data_id');
+  deleteHandle = (articleNum, id) => {
+    if (articleNum > 0) {
+      Feedback.toast.error('文章数量大于0，不可删除');
+      return '';
+    }
     this.props.handleClick(id, TAGS_ACTION_DELETE);
   };
 
@@ -34,13 +37,11 @@ export default class ServiceCard extends Component {
   };
 
   // 弹出修改
-  onOpenUpdate = (event) => {
-    const id = event.target.getAttribute('data_id');
-    const tagName = event.target.getAttribute('tag_name');
+  onOpenUpdate = (id, tagName) => {
     this.setState({
       visible: true,
-      id: id,
-      tagName: tagName,
+      id,
+      tagName,
     });
   };
 
@@ -89,8 +90,8 @@ export default class ServiceCard extends Component {
             <div className="tag-header">
               {tagItemInit.tagName}
               <div className="handle-icon">
-                <CustomIcon type="shanchu" className="handle-delete handle" data_id={tagItemInit.id} onClick={this.deleteHandle} />
-                <CustomIcon type="xiugai1" className="handle-update handle" data_id={tagItemInit.id} tag_name={tagItemInit.tagName} onClick={this.onOpenUpdate} />
+                <CustomIcon type="shanchu" className="handle-delete handle" onClick={this.deleteHandle.bind(this, tagItemInit.articleNum, tagItemInit.id)} />
+                <CustomIcon type="xiugai1" className="handle-update handle" onClick={this.onOpenUpdate.bind(this, tagItemInit.id, tagItemInit.tagName)} />
               </div>
             </div>
           </IcePanel.Header>

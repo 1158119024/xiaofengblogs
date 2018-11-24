@@ -82,6 +82,7 @@ class WebCollectToolPage extends Component {
     this.setState({
       visible: false,
     });
+    window.close();
   };
   render() {
     const { title, url } = this.state;

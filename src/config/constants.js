@@ -53,3 +53,13 @@ export const getColorRandom = () => {
   return colorRandom[getRandom(0, 7)];
 };
 
+// 格式化标签的选择器datasource
+export const tagsDataHandle = (obj) => {
+  const dataSource = [];
+  if (obj) {
+    obj.map((item, index) => (
+      dataSource.push({ value: `${item.id}`, label: item.tagName })
+    ));
+  }
+  return dataSource;
+};

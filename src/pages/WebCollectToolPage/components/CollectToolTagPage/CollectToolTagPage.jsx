@@ -7,6 +7,7 @@ import connect from 'react-redux/es/connect/connect';
 import { tagsAction } from '../../../BackTagsPage/actions';
 import injectReducer from '../../../../utils/injectReducer';
 import reducer from '../../../BackTagsPage/reducer';
+import { tagsDataHandle } from '../../../../config/constants';
 import { TAGS_ACTION_GETTAGS, TAGS_ACTION_GETTAGSBYUSERID_PAGING } from '../../../BackTagsPage/contants';
 
 const { Option } = Select;
@@ -49,15 +50,15 @@ class CollectToolTagPage extends Component {
   }
 
   // 格式化标签的选择器datasource
-  tagsDataHandle = (obj) => {
-    const dataSource = [];
-    if (obj) {
-      obj.map((item, index) => (
-        dataSource.push({ value: `${item.id}`, label: item.tagName })
-      ));
-    }
-    return dataSource;
-  };
+  // tagsDataHandle = (obj) => {
+  //   const dataSource = [];
+  //   if (obj) {
+  //     obj.map((item, index) => (
+  //       dataSource.push({ value: `${item.id}`, label: item.tagName })
+  //     ));
+  //   }
+  //   return dataSource;
+  // };
 
   render() {
     const { tagsResult, isLoading } = this.props.tagsResult;
@@ -70,7 +71,7 @@ class CollectToolTagPage extends Component {
           <Select
             placeholder="选择我的标签"
             onChange={this.props.onTagSelect}
-            dataSource={this.tagsDataHandle(tagsResultInit.data.list)}
+            dataSource={tagsDataHandle(tagsResultInit.data.list)}
             style={{ width: '100%' }}
             showSearch
             hasClear

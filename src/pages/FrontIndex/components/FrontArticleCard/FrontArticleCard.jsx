@@ -96,7 +96,6 @@ export default class FrontArticleCard extends Component {
                       </Balloon>
                       {moment(item.createTime).format(DATE_FORMAT)}
                     </span>
-
                   </div>
                 </Card>
               </div>
@@ -104,7 +103,14 @@ export default class FrontArticleCard extends Component {
           }
           <div style={{ textAlign: 'center', padding: '10px 0' }}>
             {
-              articleResultInit.data.list && articleResultInit.data.list.length > 0 ? <Pagination hideOnlyOnePage current={articleResultInit.data.pageNum} onChange={this.props.pageChangeHandle} total={articleResultInit.data.total} pageSize={articleResultInit.data.pageSize} /> : ''
+              articleResultInit.data.list && articleResultInit.data.list.length > 0 ?
+                <Pagination
+                  hideOnlyOnePage
+                  current={articleResultInit.data.pageNum}
+                  onChange={this.props.pageChangeHandle}
+                  total={articleResultInit.data.total}
+                  pageSize={articleResultInit.data.pageSize}
+                /> : ''
             }
           </div>
         </div>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Balloon, Loading, moment } from '@icedesign/base';
+import { Balloon, Loading, moment, Pagination } from '@icedesign/base';
+import IceLabel from '@icedesign/label';
+import { withRouter } from 'react-router-dom';
 
 import { CustomIcon } from '../../../../config/iconfont';
 import './frontCollectCard.scss';
-import IceLabel from '@icedesign/label';
-import { DATE_FORMAT, getColor } from '../../../../config/constants';
+import { DATE_FORMAT, FRONT_PREFIX, getColor } from '../../../../config/constants';
 
 let collectResultInit = {
   code: 0,
@@ -35,10 +36,19 @@ let collectResultInit = {
   },
   msg: '',
 };
+@withRouter
 export default class FrontCollectCard extends Component {
 
   static propTypes = {
     collectResult: PropTypes.object.isRequired,
+    pageChangeHandle: PropTypes.func.isRequired,
+    currentPage: PropTypes.number.isRequired,
+  };
+
+  // 跳转对应的标签
+  handleClick = (item, event) => {
+    const { history } = this.props;
+    history.push(`${FRONT_PREFIX}collect/${item.id}/${item.tagName}/${item.articleNum}`);
   };
 
   render() {
@@ -46,13 +56,12 @@ export default class FrontCollectCard extends Component {
     if (collectResult && collectResult.code === 200) {
       collectResultInit = this.props.collectResult.collectResult;
     }
-    console.log(collectResultInit);
     return (
       <Loading shape="fusion-reactor" visible={isLoading} style={{ width: '100%' }}>
         <div className="front-collect-card-list">
           {
             collectResultInit.data.list.map((item, index) => (
-              <div className="front-collect-card" key={index}>
+              <div className="front-collect-card zoomIn" key={index}>
                 <header className="front-collect-card-header">
                   <a href={item.url} target="_blank" className="front-collect-card-header-title">{item.title}</a>
                 </header>
@@ -64,7 +73,7 @@ export default class FrontCollectCard extends Component {
                   {
                     item.tagsEntity ?
                       <IceLabel className="tag-label" style={getColor(item.tagsEntity.tagName)}>
-                        <span>{item.tagsEntity.tagName}</span>
+                        <span onClick={this.handleClick.bind(this, item.tagsEntity)}>{item.tagsEntity.tagName}</span>
                       </IceLabel> : ''
                   }
                   <span className="front-collect-card-footer-time">
@@ -82,6 +91,18 @@ export default class FrontCollectCard extends Component {
                 </footer>
               </div>
             ))
+          }
+        </div>
+        <div style={{ textAlign: 'center', padding: '10px 0' }}>
+          {
+            collectResultInit.data.list && collectResultInit.data.list.length > 0 ?
+              <Pagination
+                hideOnlyOnePage
+                current={this.props.currentPage}
+                onChange={this.props.pageChangeHandle}
+                total={collectResultInit.data.total}
+                pageSize={collectResultInit.data.pageSize}
+              /> : ''
           }
         </div>
       </Loading>

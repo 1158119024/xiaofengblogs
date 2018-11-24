@@ -138,6 +138,7 @@ export const tagsAction = (params, type, checkedTag = [], params2) => {
       return response.data;
     } catch (error) {
       dispatch(tagsActionFailure(error));
+      Feedback.toast.error('异常');
     }
   };
 };

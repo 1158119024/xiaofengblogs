@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IcePanel from '@icedesign/panel';
-import { Card, Balloon, Loading, Search, Select, moment } from '@icedesign/base';
+import { Card, Balloon, Loading, Search, Select, moment, Pagination } from '@icedesign/base';
 import { compose } from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import PropTypes from 'prop-types';
@@ -18,7 +18,7 @@ import {
   COLLECT_ACTION_GETTOOL,
   COLLECT_ACTION_UPDATE,
 } from './constants';
-import { DATE_FORMAT, getColor } from '../../config/constants';
+import { DATE_FORMAT, getColor, tagsDataHandle } from '../../config/constants';
 import UpdateCollectDialog from './components/UpdateCollectDialog/UpdateCollectDialog';
 
 let collectResultInit = {
@@ -65,6 +65,8 @@ class BackCollectPage extends Component {
     updateTitle: '', // 将要修改的收藏的标题
     updateReadme: '', // 将要被修改的备注
     updateId: 0, // 将要修改的收藏的id
+    updateTagId: '', // 将要被修改的标签id
+    currentPage: 1,
   };
 
   componentDidMount() {
@@ -72,8 +74,8 @@ class BackCollectPage extends Component {
   }
 
   getCollectsByCondition = (params) => {
-    const { searchTitle, tagId } = this.state;
-    this.props.collectAction({ title: searchTitle, tagId, ...params }, COLLECT_ACTION_GETCOLLECTSBYCONDITION);
+    const { searchTitle, tagId, currentPage } = this.state;
+    this.props.collectAction({ title: searchTitle, tagId, pageNum: currentPage, ...params }, COLLECT_ACTION_GETCOLLECTSBYCONDITION);
   };
 
   // 条件查询
@@ -85,16 +87,25 @@ class BackCollectPage extends Component {
     });
   };
 
-  // 格式化标签的选择器datasource
-  tagsDataHandle = (obj) => {
-    const dataSource = [];
-    if (obj) {
-      obj.map((item, index) => (
-        dataSource.push({ value: item.id, label: item.tagName })
-      ));
-    }
-    return dataSource;
+  // 选择分页
+  pageChangeHandle = (current) => {
+    this.setState({
+      currentPage: current,
+    }, () => {
+      this.getCollectsByCondition();
+    });
   };
+
+  // 格式化标签的选择器datasource
+  // tagsDataHandle = (obj) => {
+  //   const dataSource = [];
+  //   if (obj) {
+  //     obj.map((item, index) => (
+  //       dataSource.push({ value: item.id, label: item.tagName })
+  //     ));
+  //   }
+  //   return dataSource;
+  // };
 
   // 选择标签时
   onTagSelect = (value, option) => {
@@ -104,18 +115,19 @@ class BackCollectPage extends Component {
   };
 
   // 打开修改收藏
-  onOpenUpdateDialog = (title, readme, id) => {
+  onOpenUpdateDialog = (title, readme, id, updateTagId) => {
     this.setState({
       updateId: id,
       updateReadme: readme,
       updateTitle: title,
       updateVisible: true,
+      updateTagId,
     });
   };
 
   // 修改完成后保存弹出数据
-  onUpdateOkDialog = (readme) => {
-    this.props.collectAction({ readme, id: this.state.updateId }, COLLECT_ACTION_UPDATE).then(res => {
+  onUpdateOkDialog = (readme, updateTagId) => {
+    this.props.collectAction({ readme, id: this.state.updateId, tagId: updateTagId }, COLLECT_ACTION_UPDATE).then(res => {
       this.getCollectsByCondition();
       this.onUpdateCloseDialog();
     });
@@ -128,6 +140,7 @@ class BackCollectPage extends Component {
       updateReadme: '',
       updateTitle: '',
       updateVisible: false,
+      updateTagId: '',
     });
   };
 
@@ -180,8 +193,9 @@ class BackCollectPage extends Component {
                   <Select
                     placeholder="选择我的标签"
                     onChange={this.onTagSelect}
-                    dataSource={this.tagsDataHandle(collectResultInit.data.tagsList)}
-                    style={{ marginRight: 20 }}
+                    dataSource={tagsDataHandle(collectResultInit.data.tagsList)}
+                    style={{ marginRight: 10 }}
+                    autoWidth={false}
                     showSearch
                     hasClear
                   />
@@ -225,7 +239,7 @@ class BackCollectPage extends Component {
                               <span>
                                 <a className="collect-opt" href={`${item.url}`} target="_blank">查看</a>
                               </span>
-                              <span className="collect-opt" onClick={this.onOpenUpdateDialog.bind(this, item.title, item.readme, item.id)}>修改</span>
+                              <span className="collect-opt" onClick={this.onOpenUpdateDialog.bind(this, item.title, item.readme, item.id, item.tagId)}>修改</span>
                               <span className="collect-opt collect-opt-del" onClick={this.deleteCollectHandle.bind(this, item.id)}>删除</span>
                             </div>
                           </div>
@@ -235,9 +249,17 @@ class BackCollectPage extends Component {
                   }
                 </div>
               </Loading>
+              <Pagination style={{ textAlign: 'center' }} current={this.state.currentPage} hideOnlyOnePage onChange={this.pageChangeHandle} total={collectResultInit.data.total} pageSize={collectResultInit.data.pageSize} />
             </IcePanel.Body>
           </IcePanel>
-          <UpdateCollectDialog updateVisible={this.state.updateVisible} updateTitle={this.state.updateTitle} updateReadme={this.state.updateReadme} onUpdateCloseDialog={this.onUpdateCloseDialog} onUpdateOkDialog={this.onUpdateOkDialog} />
+          <UpdateCollectDialog
+            updateVisible={this.state.updateVisible}
+            updateTitle={this.state.updateTitle}
+            updateReadme={this.state.updateReadme}
+            updateTagId={this.state.updateTagId}
+            onUpdateCloseDialog={this.onUpdateCloseDialog}
+            onUpdateOkDialog={this.onUpdateOkDialog}
+          />
           <CollectToolDialog visible={this.state.visible} onToolCloseDialog={this.onToolCloseDialog} collectToolURL={this.state.collectToolURL} />
         </div>
     );

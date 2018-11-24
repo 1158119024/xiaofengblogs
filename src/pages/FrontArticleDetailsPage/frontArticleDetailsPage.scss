@@ -32,6 +32,41 @@
 
   .article-details-content{
     padding: 0 30px 20px;
+
+    .article-details-content-footer{
+      padding: 10px 0;
+      height: 80px;
+      position: relative;
+
+      .article-details-content-footer-opt{
+        height: 20px;
+        .article-details-content-footer-div{
+          display: inline-block;
+          position: absolute;
+          color: #666666;
+          cursor: pointer;
+        }
+        .article-details-content-footer-div:hover{
+          color: #999999;
+        }
+
+        .article-details-content-footer-pre{
+          left: 0;
+        }
+        .article-details-content-footer-next{
+          right: 0;
+        }
+
+        .content-footer{
+          padding: 0 5px;
+        }
+      }
+
+      .article-details-content-footer-icon{
+        padding: 10px 0;
+        text-align: center;
+      }
+    }
   }
 }
 

@@ -25,7 +25,7 @@ export default class FrontLayout extends Component {
               <Route path="/test" />
               <Route path="/tags" exact component={FrontTagsPage} />
               <Route path="/tags/:id/:tagName/:articleNum" component={TagsDetailsPage} />
-              <Route path="/collect" component={FrontCollectPage} />
+              <Route path="/collect/:tagId?/:tagName?/:articleNum?" component={FrontCollectPage} />
               <Route path="/article/:id" component={FrontArticlePage} />
               <Route path="/archives" exact component={FrontArchivesPage} />
               <Route path="/archives/:archivesTime/:count" exact component={FrontArchivesDetailsPage} />

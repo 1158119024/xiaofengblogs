@@ -8,10 +8,11 @@ import IceLabel from '@icedesign/label';
 import { articleAction } from '../BackArticlePage/actions';
 import injectReducer from '../../utils/injectReducer';
 import reducer from '../BackArticlePage/reducer';
-import { ARTICLE_ACTION_GETARTICLEBYID } from '../BackArticlePage/contants';
+import { ARTICLE_ACTION_GETARTICLEANDPREANDNEXTBYID, ARTICLE_ACTION_GETARTICLEBYID } from '../BackArticlePage/contants';
 import './frontArticleDetailsPage.scss';
 import { DATE_FORMAT, FRONT_PREFIX, getColor } from '../../config/constants';
 import { CustomIcon } from '../../config/iconfont';
+import { Link } from 'react-router-dom';
 
 let articleResultInit = {
   code: 200,
@@ -30,6 +31,8 @@ let articleResultInit = {
     id: 66,
     state: 1,
     browseNum: 0,
+    prevArticleEntity: {},
+    nextArticleEntity: {},
   },
   msg: '',
 };
@@ -41,14 +44,46 @@ class FrontArticleDetailsPage extends Component {
     articleResult: PropTypes.object.isRequired,
   };
 
-  componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.articleAction(id, ARTICLE_ACTION_GETARTICLEBYID);
-  }
+  state = {
+    id: '',
+  };
 
+  componentDidMount = () => {
+    const { id } = this.props.match.params;
+    this.setState({
+      id,
+    }, () => {
+      this.getArticleAndPreAndNextById();
+    });
+  };
+
+  componentWillReceiveProps = (props) => {
+    const { id } = props.match.params;
+    if (id && id !== this.state.id) {
+      this.setState({
+        id,
+      }, () => {
+        this.getArticleAndPreAndNextById();
+      });
+    }
+  };
+
+  // 以当前文章id为中，查询上中下三篇
+  getArticleAndPreAndNextById = () => {
+    const { id } = this.state;
+    this.props.articleAction({ id }, ARTICLE_ACTION_GETARTICLEANDPREANDNEXTBYID);
+  };
+
+  // 跳转对应的标签
   handleClick = (item, event) => {
     const { history } = this.props;
     history.push(`${FRONT_PREFIX}tags/${item.id}/${item.tagName}/${item.articleNum}`);
+  };
+
+  // 跳转上下一篇
+  handleArticleClick = (id) => {
+    const { history } = this.props;
+    history.push(`${FRONT_PREFIX}article/${id}`);
   };
 
   render() {
@@ -88,6 +123,41 @@ class FrontArticleDetailsPage extends Component {
           <div className="article-details-content">
             <hr />
             <div className="container" dangerouslySetInnerHTML={{ __html: articleResultInit.data.content }}></div>
+            <div className="article-details-content-footer">
+              <div className="article-details-content-footer-opt">
+                {
+                  articleResultInit.data.prevArticleEntity ?
+                    <div
+                      className="article-details-content-footer-div article-details-content-footer-pre"
+                      onClick={this.handleArticleClick.bind(this, articleResultInit.data.prevArticleEntity.id)}
+                    >
+                      <CustomIcon type="tikushaonv-shangxiayige" />
+                      <span className="content-footer">
+                      {articleResultInit.data.prevArticleEntity.title}
+                    </span>
+                    </div>
+                    : ''
+                }
+
+                {
+                  articleResultInit.data.nextArticleEntity ?
+                    <div
+                      className="article-details-content-footer-div article-details-content-footer-next"
+                      onClick={this.handleArticleClick.bind(this, articleResultInit.data.nextArticleEntity.id)}
+                    >
+                    <span className="content-footer">
+                      {articleResultInit.data.nextArticleEntity.title}
+                    </span>
+                      <CustomIcon type="xiayige" />
+                    </div>
+                    : ''
+                }
+              </div>
+              <div className="article-details-content-footer-icon">
+                {/*<CustomIcon type="liulan" />{articleResultInit.data.browseNum}*/}
+              </div>
+            </div>
+            <hr />
           </div>
         </article>
       </Loading>
