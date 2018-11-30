@@ -16,7 +16,7 @@ import './writeBlogs.scss';
 import ArticleTagsDialog2 from '../ArticleTagsDialog/ArticleTagsDialog2';
 import { ADMIN_PREFIX, getColor } from '../../../../config/constants';
 import { ARTICLE_ACTION_ADD, ARTICLE_ACTION_DELETE, ARTICLE_ACTION_UPDATE, ARTICLE_ACTION_GETARTICLEBYID, ARTICLE_ACTION_GETARTICLESBYUSERID } from '../../contants';
-
+// import MarkdownPage from '../MarkdownPage/demo';
 
 let articleResultInit = {
   code: 0,
@@ -216,6 +216,7 @@ class WriteBlogsPage extends Component {
           </div>
           <div>
             <BraftEditor updateArticle={this.updateArticle} articleContent={this.state.articleContent} />
+            {/*<MarkdownPage />*/}
           </div>
           <div className="article-footer">
             <div className="article-footer-tag">
