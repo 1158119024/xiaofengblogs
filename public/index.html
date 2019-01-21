@@ -5,7 +5,37 @@
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
   <meta name="viewport" content="width=device-width">
-  <title>马路上捡的程序员</title>
+  <title>个人技术分享</title>
+  <script>
+    function browserRedirect() {
+      let ua= navigator.userAgent.toLowerCase();
+      let ipad= ua.match(/ipad/i) == "ipad";
+      let iphone= ua.match(/iphone os/i) == "iphone os";
+
+      let mid= ua.match(/midp/i) == "midp";
+      //midp，即Mobile Internet Device pad，一种新的“比智能电话大，比笔记本小”的互联网终端。
+      let uc7= ua.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+      let uc= ua.match(/ucweb/i) == "ucweb";
+      let android= ua.match(/android/i) == "android";
+      let ce= ua.match(/windows ce/i) == "windows ce";
+      let mobile= ua.match(/windows mobile/i) == "windows mobile";
+      if (ipad|| iphone|| mid|| uc7|| uc || android|| ce|| mobile) {
+        //跳转移动端页面
+        //window.location.href="http://ymyhome.cn/mobile/";
+        return "mobile";
+      } else {
+        //跳转pc端页面
+        //window.location.href="http://ymyhome.cn/web/";
+        return "web";
+      }
+    }
+
+    // 如果链接是web， 则替换成mobile
+    if( browserRedirect() === "mobile" ){
+      let uri = window.location.href;
+      window.location.href = uri.replace("http://ymyhome.cn/web", "http://ymyhome.cn/mobile");
+    }
+  </script>
 </head>
 
 <body>

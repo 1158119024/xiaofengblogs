@@ -121,6 +121,7 @@ class BackArticlePage extends Component {
   searchArticle = (filter) => {
     this.setState({
       searchTitle: filter.key,
+      currentPage: 1,
     }, () => {
       this.getArticleByUserId();
     });

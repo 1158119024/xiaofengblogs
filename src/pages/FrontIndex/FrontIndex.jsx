@@ -35,6 +35,7 @@ class FrontIndex extends Component {
     const searchTitle = filter.key;
     this.setState({
       searchTitle,
+      currentPage: 1,
     }, () => {
       this.getArticle();
     });

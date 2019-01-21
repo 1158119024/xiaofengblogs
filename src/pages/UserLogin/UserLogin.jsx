@@ -74,7 +74,7 @@ class UserLogin extends Component {
   //       //侦测是用户触发的后退操作, dosomething
   //       //这里刷新当前url
   //       this.location.reload();
-  //     } 
+  //     }
   //   }, false);
   // }
   //

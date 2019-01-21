@@ -29,7 +29,6 @@ export const getUserDetailsAction = () => {
     dispatch(userDetailsGetRequest());
     try {
       const response = await getUserDetails();
-      console.log(response);
       dispatch(userDetailsGetSuccess(response.data));
       return response.data;
     } catch (error) {

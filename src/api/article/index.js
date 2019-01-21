@@ -5,7 +5,7 @@ import { usernameGetFun } from '../../config/constants';
 // 添加文章
 export async function add(params) {
   return axios({
-    url: 'xiaofeng/article/add',
+    url: '/xiaofeng/article/add',
     method: 'post',
     data: params,
   });
@@ -13,7 +13,7 @@ export async function add(params) {
 // 删除
 export async function del(params) {
   return axios({
-    url: `xiaofeng/article/delete/${params}`,
+    url: `/xiaofeng/article/delete/${params}`,
     method: 'get',
   });
 }
@@ -27,7 +27,7 @@ export async function del(params) {
 // 修改
 export async function update(params) {
   return axios({
-    url: 'xiaofeng/article/update',
+    url: '/xiaofeng/article/update',
     method: 'post',
     data: params,
   });
@@ -36,7 +36,7 @@ export async function update(params) {
 // 修改状态
 export async function updateState(params) {
   return axios({
-    url: 'xiaofeng/article/updateState',
+    url: '/xiaofeng/article/updateState',
     method: 'post',
     data: params,
   });
@@ -44,14 +44,14 @@ export async function updateState(params) {
 // 根据id获取文章
 export async function getArticleById(params) {
   return axios({
-    url: `xiaofeng/article/getArticleById/${params}`,
+    url: `/xiaofeng/article/getArticleById/${params}`,
     method: 'get',
   });
 }
 // 根据用户id获取文章列表
 export async function getArticlesByUserId(params) {
   return axios({
-    url: 'xiaofeng/article/getArticlesByUserId',
+    url: '/xiaofeng/article/getArticlesByUserId',
     method: 'post',
     data: params,
   });
@@ -62,7 +62,7 @@ export async function getArticlesByUserId(params) {
 export async function getArticles(params) {
   params.userId = usernameGetFun();
   return axios({
-    url: 'xiaofeng/article/getArticles',
+    url: '/xiaofeng/article/getArticles',
     method: 'post',
     data: params,
   });
@@ -72,7 +72,7 @@ export async function getArticles(params) {
 export async function getArchivesByCreateTime(params) {
   params.userId = usernameGetFun();
   return axios({
-    url: 'xiaofeng/article/getArchivesByCreateTime',
+    url: '/xiaofeng/article/getArchivesByCreateTime',
     method: 'post',
     data: params,
   });
@@ -82,7 +82,7 @@ export async function getArchivesByCreateTime(params) {
 export async function getArticleAndPreAndNextById(params) {
   params.userId = usernameGetFun();
   return axios({
-    url: 'xiaofeng/article/getArticleAndPreAndNextById',
+    url: '/xiaofeng/article/getArticleAndPreAndNextById',
     method: 'post',
     data: params,
   });

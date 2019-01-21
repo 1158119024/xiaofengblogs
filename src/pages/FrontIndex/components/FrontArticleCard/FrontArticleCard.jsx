@@ -64,7 +64,17 @@ export default class FrontArticleCard extends Component {
                   item.isTop ? <CustomIcon className="right-card-icon" size="xxl" type="top" /> : ''
                 }
                 <Card
-                  title={<Link to={`${FRONT_PREFIX}article/${item.id}`} className="right-card-title">{item.title}</Link>}
+                  title={
+                    <Link to={`${FRONT_PREFIX}article/${item.id}`} className="right-card-title">
+                      {item.title}
+                      <div className="windmill">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>
+                    </Link>
+                  }
                   titleBottomLine={false}
                   bodyHeight={100}
                   className="right-card"

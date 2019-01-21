@@ -14,7 +14,7 @@ html, body{
 .layout{
   padding: 0px;
   height: 100%;
-  position: relative;
+  //position: relative;
   overflow-y: auto;
   margin-bottom: 0px !important;
   background-color: $layout-body-color !important;
@@ -30,13 +30,14 @@ html, body{
   height: 95%;
   display: inline-block;
   background-color: #ffffff;
-  position: fixed;
+  position: absolute;
   border-radius: 10px;
 
   // 左侧图片（头像）
   .layout-left-img{
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(200,200,200,.7));
     text-align: center;
-    background-color: $layout-left-label-color;
+    //background-color: $layout-left-label-color;
     border-radius: 10px;
 
     .ice-img{
@@ -83,13 +84,14 @@ html, body{
   }
   // 左侧尾部
   .layout-left-footer{
+    background-image: linear-gradient(-90deg, rgba(255, 255, 255, 0), rgba(200,200,200,.7));
     width: 100%;
     height: 120px;
     position: absolute;
     text-align: center;
     bottom: 0px;
     border-radius: 10px;
-    background-color: $layout-left-label-color;
+    //background-color: $layout-left-label-color;
 
     .layout-left-footer-icon{
       line-height: 120px;
@@ -110,9 +112,10 @@ html, body{
   //width: 67%;
   width: 80%;
   display: inline-block;
-  position: absolute;
-  //right: 16%;
-  right: 2%;
+  //position: absolute;
+  //right: 2%;
+  float: right;
+  margin-right: 20px;
 
   .layout-footer{
     padding: 20px;
@@ -152,3 +155,45 @@ html, body{
   overflow: hidden;
   margin-top: 20px;
 }
+
+
+// 扇形导航
+.nav-wrap{
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+
+  .all-nav-btn{
+    width: 100%;
+    height: 100%;
+  }
+
+  .nav-btn{
+    border-radius: 50%;
+    background: #F3F3F1;
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    margin: 10px;
+  }
+  .nav-btn > i{
+    margin: 5px;
+    color: #666;
+    display: inline-block;
+  }
+
+  .home-btn{
+    border-radius: 50%;
+    transition: 1s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+

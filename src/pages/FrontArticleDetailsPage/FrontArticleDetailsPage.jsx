@@ -12,7 +12,6 @@ import { ARTICLE_ACTION_GETARTICLEANDPREANDNEXTBYID, ARTICLE_ACTION_GETARTICLEBY
 import './frontArticleDetailsPage.scss';
 import { DATE_FORMAT, FRONT_PREFIX, getColor } from '../../config/constants';
 import { CustomIcon } from '../../config/iconfont';
-import { Link } from 'react-router-dom';
 
 let articleResultInit = {
   code: 200,
@@ -118,6 +117,18 @@ class FrontArticleDetailsPage extends Component {
                   </IceLabel>
                 ))
               }
+            </div>
+            <div className="article-details-header-yuedu">
+              <Balloon
+                trigger={<span><CustomIcon style={{ marginRight: '7px' }} size="small" type="fuhao-yuedu" /></span>}
+                triggerType="hover"
+                closable={false}
+                align="b"
+                className="balloon-message"
+              >
+                阅读数
+              </Balloon>
+              <span>{articleResultInit.data.browseNum}</span>
             </div>
           </header>
           <div className="article-details-content">

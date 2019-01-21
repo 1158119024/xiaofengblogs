@@ -82,6 +82,7 @@ class BackCollectPage extends Component {
   collectSearch = filter => {
     this.setState({
       searchTitle: filter.key,
+      currentPage: 1,
     }, () => {
       this.getCollectsByCondition();
     });

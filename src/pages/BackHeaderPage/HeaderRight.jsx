@@ -11,13 +11,13 @@ import { compose } from 'redux';
 import injectReducer from '../../utils/injectReducer';
 import { getUser } from './actions';
 import reducer from './reducer';
-import { LOGIN_PATH } from '../../config/constants';
+import { LOGIN_PATH, FRONT_PREFIX } from '../../config/constants';
 
 @withRouter
 class HeaderRight extends Component {
 
   loginOut = () => {
-    cookie.remove('token', { path: '' });
+    cookie.remove('token', { path: '/' }); // path一定要与cookie上的对应
   };
 
   componentDidMount = () => {

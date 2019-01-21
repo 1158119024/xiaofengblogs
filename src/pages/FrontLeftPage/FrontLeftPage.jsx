@@ -64,7 +64,7 @@ const footerIcon = [
       enableAliCDNSuffix={false}
       width={180}
       height={180}
-      src={QQImage}
+      src={`./${QQImage}`}
       type="cover"
       shape="circle"
       title="QQ"
@@ -77,7 +77,7 @@ const footerIcon = [
       enableAliCDNSuffix={false}
       width={180}
       height={180}
-      src={WXImage}
+      src={`./${WXImage}`}
       type="cover"
       shape="sharp"
       title="微信"
@@ -134,11 +134,11 @@ class FrontLeftPage extends Component {
               src={data.image}
               type="cover"
               shape="circle"
-              style={{ border: '1px solid #ccc', margin: '10px' }}
+              style={{ border: '1px solid #ccc', margin: '10px', boxShadow: '1px 1px 10px #999' }}
             />
           </div>
           <div className="layout-left-content">
-            <h1 className="user-name">{data.aliasname}</h1>
+            <h1 className="user-name" style={{ color: '#fff', textShadow: '#000 1px 1px 10px' }}>{data.aliasname}</h1>
             <div className="layout-left-content-list">
               <div className="layout-left-content-item">
                 <div className="layout-left-content-item-title">

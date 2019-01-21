@@ -4,9 +4,11 @@ import PropTypes from 'prop-types';
 import BraftEditor from 'braft-editor';
 import ColorPicker from 'braft-extensions/dist/color-picker';
 import CodeHighlighter from 'braft-extensions/dist/code-highlighter';
+import Table from 'braft-extensions/dist/table';
 import 'braft-editor/dist/index.css';
 import 'braft-extensions/dist/code-highlighter.css';
 import 'braft-extensions/dist/color-picker.css';
+import 'braft-extensions/dist/table.css';
 
 import 'prismjs/components/prism-java';
 import 'prismjs/components/prism-php';
@@ -33,7 +35,10 @@ const list = [
 BraftEditor.use(ColorPicker({
   theme: 'light', // 支持dark和light两种主题，默认为dark
 }));
-
+BraftEditor.use(Table({
+  defaultColumns: 5,
+  defaultRows: 3,
+}));
 export default class CustomBraftEditor extends Component {
 
   static propTypes = {

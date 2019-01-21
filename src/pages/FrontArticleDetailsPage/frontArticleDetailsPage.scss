@@ -18,11 +18,19 @@
       position: absolute;
       right: 30px;
       top: 18px;
-      color: #999
+      color: #999;
+      cursor: pointer;
     }
 
     .article-details-header-tags{
-
+      display: inline-block;
+    }
+    .article-details-header-yuedu{
+      display: inline-block;
+      position: absolute;
+      right: 50px;
+      color: #999999;
+      cursor: pointer;
     }
   }
   .article-details-header:hover{
@@ -92,11 +100,31 @@
   padding: 15px;
   background-color: #f1f1f1;
   border-radius: 5px;
+  border: 1px solid #666;
 }
 .container blockquote{
   margin: 0;
   padding: 15px;
   background-color: #f1f1f1;
   border-left: 3px solid #d1d1d1;
+}
+.container ul{
+  list-style: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+.container tr:nth-child(1){
+  background-color: #aaaaaa !important;
+}
+.container tr:nth-child(2n-1){
+  background-color: #eeeeee;
+}
+.container td{
+  border: 1px solid #666;
+  padding: 5px 15px;
+  text-align: center;
 }
 

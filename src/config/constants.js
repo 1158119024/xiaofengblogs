@@ -63,3 +63,8 @@ export const tagsDataHandle = (obj) => {
   }
   return dataSource;
 };
+
+export const setDocumentField = (title) => {
+  document.title = title;
+};
+

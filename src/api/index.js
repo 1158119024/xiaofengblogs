@@ -6,7 +6,7 @@ import { REQUEST_PREFIX } from '../config/constants';
 
 axios.interceptors.response.use(response => {
   if (response.data.code === 203 || response.data.code === '203') {
-    cookie.remove('token', { path: '' });
+    cookie.remove('token', { path: '/' });
     Feedback.toast.error(response.data.msg);
     window.location.href = `${REQUEST_PREFIX}user/login`;
     return null;
