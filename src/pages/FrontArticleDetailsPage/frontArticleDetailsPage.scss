@@ -108,13 +108,18 @@
   background-color: #f1f1f1;
   border-left: 3px solid #d1d1d1;
 }
-.container ul{
-  list-style: disc;
+.container ul,ol{
   margin-block-start: 1em;
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px;
+}
+.container ul{
+  list-style: disc;
+}
+.container ol{
+  list-style: decimal;
 }
 .container tr:nth-child(1){
   background-color: #aaaaaa !important;
